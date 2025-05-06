@@ -1,10 +1,14 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
     "activeFile": "Tilesets/Cave Tiles.tsx",
     "expandedProjectPaths": [
         "Tilesets",
-        ".",
         "Map",
-        "Map/Test Map"
+        "Map/Test Map",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -174,12 +178,20 @@
     "last.exportedFilePath": "D:/HentaiGame/Tiled",
     "last.imagePath": "D:/HentaiGame/Tiles/Village/Tiles",
     "lastUsedTilesetExportFilter": "All Files (*)",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
     "openFiles": [
         "Tilesets/Cave Tiles.tsx",
         "Village Nature.tsx"
     ],
     "project": "HentaiGame.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
+        "Village Terrain.tsx",
+        "Village Nature.tsx",
+        "Tilesets/Cave Tiles.tsx",
         "Tilesets/Blacksmith Floors No Shadow.tsx",
         "Tilesets/Rural Village Interior Floors.tsx",
         "Tilesets/Rural Village Interior Objects.tsx",
@@ -188,10 +200,7 @@
         "Tilesets/Market Objects.tsx",
         "Tilesets/Market Canopies.tsx",
         "Tilesets/Market Floors.tsx",
-        "Tilesets/Market Signs.tsx",
-        "Tilesets/Mesoamerican Dungeon Floors.tsx",
-        "Tilesets/Mesoamerican Dungeon Objects.tsx",
-        "Tilesets/Mesoamerican Dungeon Walls.tsx"
+        "Tilesets/Market Signs.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
