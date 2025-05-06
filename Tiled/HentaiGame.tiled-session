@@ -1,12 +1,78 @@
 {
-    "activeFile": "",
+    "activeFile": "Tilesets/Cave Tiles.tsx",
     "expandedProjectPaths": [
+        ".",
+        "Tilesets",
+        "Map"
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "D:/HentaiGame/Maps/FirstMap.tmj": {
+            "scale": 3.198828125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127.85932348272071,
+                "y": 127.85932348272071
+            }
+        },
+        "D:/HentaiGame/Maps/FirstMap.tmj#Village Nature": {
+            "scaleInDock": 1
+        },
+        "D:/HentaiGame/Maps/FirstMap.tmj#Village Terrain": {
+            "scaleInDock": 1
+        },
+        "D:/HentaiGame/Maps/FirstMap.tmx": {
+            "scale": 3.198828125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127.85932348272071,
+                "y": 127.85932348272071
+            }
+        },
+        "D:/HentaiGame/Maps/FirstMap.tmx#Village Nature": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "D:/HentaiGame/Maps/FirstMap.tmx#Village Terrain": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Map/Test Map/Test Map.tmx": {
+            "scale": 51.18125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 7.9912077176700445,
+                "y": 3.0675296128953464
+            }
+        },
+        "Tilesets/Cave Tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Village Nature.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Village Terrain.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
     },
+    "last.exportedFilePath": "D:/HentaiGame/Tiled",
+    "lastUsedTilesetExportFilter": "All Files (*)",
     "openFiles": [
+        "Map/Test Map/Test Map.tmx",
+        "Tilesets/Cave Tiles.tsx",
+        "D:/HentaiGame/Maps/FirstMap.tmx",
+        "Village Nature.tsx"
     ],
     "project": "HentaiGame.tiled-project",
     "recentFiles": [
+        "Map/Test Map/Test Map.tmx",
+        "Village Nature.tsx",
+        "D:/HentaiGame/Maps/FirstMap.tmx",
+        "Tilesets/Cave Tiles.tsx",
+        "Village Terrain.tsx",
+        "D:/HentaiGame/Maps/FirstMap.tmj"
     ]
 }
