@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilesets/Cave Tiles.tsx",
+    "activeFile": "Village Nature.tsx",
     "expandedProjectPaths": [
-        "Tilesets",
         "Map",
+        "Tilesets",
         "Map/Test Map",
         "."
     ],
@@ -41,6 +41,14 @@
         "D:/HentaiGame/Maps/FirstMap.tmx#Village Terrain": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "Map/Test Map/Collision test map.tmx": {
+            "scale": 1.7060416666666667,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 239.73623153010138,
+                "y": 239.73623153010138
+            }
         },
         "Map/Test Map/Test Map.tmx": {
             "scale": 1,
@@ -187,20 +195,20 @@
         "Village Nature.tsx"
     ],
     "project": "HentaiGame.tiled-project",
-    "property.type": "bool",
+    "property.type": "int",
     "recentFiles": [
-        "Village Terrain.tsx",
-        "Village Nature.tsx",
         "Tilesets/Cave Tiles.tsx",
-        "Tilesets/Blacksmith Floors No Shadow.tsx",
-        "Tilesets/Rural Village Interior Floors.tsx",
+        "Village Nature.tsx",
         "Tilesets/Rural Village Interior Objects.tsx",
         "Tilesets/Rural Village Interior Walls.tsx",
         "Tilesets/Rural Village Interiors Windows.tsx",
+        "Tilesets/Rural Village Objects.tsx",
+        "Map/Test Map/Collision test map.tmx",
+        "Village Terrain.tsx",
+        "Tilesets/Blacksmith Floors No Shadow.tsx",
+        "Tilesets/Rural Village Interior Floors.tsx",
         "Tilesets/Market Objects.tsx",
-        "Tilesets/Market Canopies.tsx",
-        "Tilesets/Market Floors.tsx",
-        "Tilesets/Market Signs.tsx"
+        "Tilesets/Market Canopies.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
