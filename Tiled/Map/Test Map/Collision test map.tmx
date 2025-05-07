@@ -3,8 +3,8 @@
  <editorsettings>
   <export target="../../../Game/Game/bin/Debug/net8.0-windows/Collision test map.tmj" format="json"/>
  </editorsettings>
- <tileset firstgid="1" source="../../Village Terrain.tsx"/>
- <tileset firstgid="3187" source="../../Village Nature.tsx"/>
+ <tileset firstgid="1" source="../../Tilesets/Village Terrain.tsx"/>
+ <tileset firstgid="3187" source="../../Tilesets/Village Nature.tsx"/>
  <tileset firstgid="4375" source="../../Tilesets/Rural Village Objects.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="30">
   <data encoding="csv">

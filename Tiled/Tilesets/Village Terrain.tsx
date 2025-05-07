@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.10" tiledversion="1.11.2" name="Village Terrain" tilewidth="16" tileheight="16" tilecount="3186" columns="59">
- <image source="../Tiles/Village/Tiles/Rural Village Terrain.png" width="944" height="864"/>
+ <image source="../../Tiles/Village/Tiles/Rural Village Terrain.png" width="944" height="864"/>
  <tile id="42">
   <objectgroup draworder="index" id="2">
    <object id="1" x="10" y="11" width="6" height="5"/>

@@ -47,15 +47,15 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 239.88671229643617,
-                "y": 240.16993155534576
+                "y": 320.6042010856738
             }
         },
         "Map/Test Map/Test Map.tmx": {
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 107,
-                "y": 255
+                "x": 106.5,
+                "y": 397
             }
         },
         "Tilesets/Blacksmith Floors No Shadow.tsx": {
@@ -174,6 +174,14 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "Tilesets/Village Nature.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Tilesets/Village Terrain.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Village Nature.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -200,18 +208,18 @@
     "project": "HentaiGame.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Tilesets/Rural Village Objects.tsx",
-        "Village Nature.tsx",
-        "Village Terrain.tsx",
         "Map/Test Map/Collision test map.tmx",
+        "Map/Test Map/Test Map.tmx",
+        "Tilesets/Village Terrain.tsx",
+        "Tilesets/Rural Village Objects.tsx",
+        "Tilesets/Village Nature.tsx",
+        "Village Nature.tsx",
         "Tilesets/Cave Tiles.tsx",
+        "Village Terrain.tsx",
         "Tilesets/Blacksmith Floors No Shadow.tsx",
         "Tilesets/Rural Village Interior Floors.tsx",
         "Tilesets/Rural Village Interior Objects.tsx",
-        "Tilesets/Rural Village Interior Walls.tsx",
-        "Tilesets/Rural Village Interiors Windows.tsx",
-        "Tilesets/Market Objects.tsx",
-        "Tilesets/Market Canopies.tsx"
+        "Tilesets/Rural Village Interior Walls.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
