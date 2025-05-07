@@ -32,8 +32,9 @@ namespace HentaiGame
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = RESOLUTION_WIDTH;
-            graphics.PreferredBackBufferHeight = RESOLUTION_HEIGHT;
+            graphics.PreferredBackBufferWidth = 1028;
+            graphics.PreferredBackBufferHeight = 600;
+
             graphics.ApplyChanges();
 
             Window.AllowUserResizing = true;
@@ -64,19 +65,14 @@ namespace HentaiGame
             ScreenManager.Instance.LoadContent(Content);
             renderer = new RenderTarget2D(GraphicsDevice, RESOLUTION_WIDTH, RESOLUTION_HEIGHT);
             UpdateScaleMatrix();
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
             deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             UpdateScaleMatrix(true);
 
-            // TODO: Add your update logic here
             ScreenManager.Instance.Update(gameTime);
             base.Update(gameTime);
         }
@@ -91,7 +87,7 @@ namespace HentaiGame
             batch.End();
 
             GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             batch.Begin(samplerState: SamplerState.PointWrap);
             batch.Draw(renderer, renderRect, Color.White);
             batch.End();

@@ -31,7 +31,7 @@ namespace HentaiGame.Script.Structure
             origin = new Vector2(tileWidth / 2, tileHeight / 2);
         }
 
-        public void Draw(SpriteBatch batch)
+        public virtual void Draw(SpriteBatch batch)
         {
 
             batch.Draw(texture, position, new Rectangle(tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight), Color.White);

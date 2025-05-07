@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilesets/Cave Tiles.tsx",
+    "activeFile": "Map/Test Map/Collision test map.tmx",
     "expandedProjectPaths": [
-        "Tilesets",
         "Map",
+        ".",
         "Map/Test Map",
-        "."
+        "Tilesets"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -41,6 +41,14 @@
         "D:/HentaiGame/Maps/FirstMap.tmx#Village Terrain": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "Map/Test Map/Collision test map.tmx": {
+            "scale": 1.7654166666666666,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 239.88671229643617,
+                "y": 240.16993155534576
+            }
         },
         "Map/Test Map/Test Map.tmx": {
             "scale": 1,
@@ -175,22 +183,27 @@
             "scaleInEditor": 1
         }
     },
-    "last.exportedFilePath": "D:/HentaiGame/Tiled",
+    "last.exportedFilePath": "C:/Users/Brioche/Documents/GitHub/HentaiGame/Game/Game/bin/Debug/net8.0-windows/Tilesets",
     "last.imagePath": "D:/HentaiGame/Tiles/Village/Tiles",
-    "lastUsedTilesetExportFilter": "All Files (*)",
+    "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
     "map.height": 30,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "Tilesets/Cave Tiles.tsx",
-        "Village Nature.tsx"
+        "Map/Test Map/Collision test map.tmx",
+        "Village Terrain.tsx",
+        "Village Nature.tsx",
+        "Tilesets/Rural Village Objects.tsx"
     ],
     "project": "HentaiGame.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Village Terrain.tsx",
+        "Tilesets/Rural Village Objects.tsx",
         "Village Nature.tsx",
+        "Village Terrain.tsx",
+        "Map/Test Map/Collision test map.tmx",
         "Tilesets/Cave Tiles.tsx",
         "Tilesets/Blacksmith Floors No Shadow.tsx",
         "Tilesets/Rural Village Interior Floors.tsx",
@@ -198,9 +211,7 @@
         "Tilesets/Rural Village Interior Walls.tsx",
         "Tilesets/Rural Village Interiors Windows.tsx",
         "Tilesets/Market Objects.tsx",
-        "Tilesets/Market Canopies.tsx",
-        "Tilesets/Market Floors.tsx",
-        "Tilesets/Market Signs.tsx"
+        "Tilesets/Market Canopies.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="1">
+ <editorsettings>
+  <export target="../../../Game/Game/bin/Debug/net8.0-windows/Collision test map.tmj" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" source="../../Village Terrain.tsx"/>
  <tileset firstgid="3187" source="../../Village Nature.tsx"/>
  <tileset firstgid="4375" source="../../Tilesets/Rural Village Objects.tsx"/>
