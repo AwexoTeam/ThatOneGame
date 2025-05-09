@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Tilesets/Village Terrain.tsx",
+    "activeFile": "Collision test map.tmx",
     "expandedProjectPaths": [
         "Map/Test Map",
         ".",
-        "Tilesets",
-        "Map"
+        "Map",
+        "Tilesets"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -23,10 +23,10 @@
         },
         "Collision test map.tmx": {
             "scale": 1.2033333333333331,
-            "selectedLayer": 0,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 239.75069252077563,
-                "y": 358.1717451523546
+                "x": 621.6066481994461,
+                "y": 148.75346260387815
             }
         },
         "D:/HentaiGame/Maps/FirstMap.tmj": {
@@ -58,6 +58,23 @@
         "D:/HentaiGame/Maps/FirstMap.tmx#Village Terrain": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "D:/HentaiGame/Published/Data/Collision test map.tmx": {
+            "scale": 1.7060416666666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 239.73623153010138,
+                "y": 239.73623153010138
+            }
+        },
+        "D:/HentaiGame/Published/Data/Tilesets/Rural Village Objects.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/HentaiGame/Published/Data/Tilesets/Village Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "D:/HentaiGame/Published/Data/Tilesets/Village Terrain.tsx": {
+            "scaleInDock": 1
         },
         "Map/Collision test map.tmx": {
             "scale": 1.2033333333333331,
@@ -194,7 +211,7 @@
         },
         "Tilesets/Rural Village Interior Walls.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 0.75
         },
         "Tilesets/Rural Village Interiors Windows.tsx": {
             "scaleInDock": 1,
@@ -210,11 +227,11 @@
         },
         "Tilesets/Village Nature.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 0.75
         },
         "Tilesets/Village Terrain.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 4
+            "scaleInEditor": 0.75
         },
         "Village Nature.tsx": {
             "scaleInDock": 1,
@@ -234,23 +251,27 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "Tilesets/Village Terrain.tsx"
+        "Tilesets/Village Terrain.tsx",
+        "Tilesets/Rural Village Objects.tsx",
+        "Tilesets/Crypt Objects.tsx",
+        "Collision test map.tmx",
+        "Tilesets/Cave Tiles.tsx"
     ],
     "project": "HentaiGame.tiled-project",
-    "property.type": "bool",
+    "property.type": "int",
     "recentFiles": [
         "Tilesets/Village Terrain.tsx",
-        "Tilesets/Village Nature.tsx",
-        "Collision test map.tmx",
-        "Map/Collision test map.tmx",
-        "Map/Test Map/Collision test map.tmx",
-        "Map/Test Map/Test Map.tmx",
         "Tilesets/Rural Village Objects.tsx",
-        "Village Nature.tsx",
+        "Tilesets/Crypt Objects.tsx",
         "Tilesets/Cave Tiles.tsx",
-        "Village Terrain.tsx",
-        "Tilesets/Blacksmith Floors No Shadow.tsx",
-        "Tilesets/Rural Village Interior Floors.tsx"
+        "Collision test map.tmx",
+        "Tilesets/Rural Village Buildings.tsx",
+        "Tilesets/Mesoamerican Dungeon Walls.tsx",
+        "Tilesets/Fishing Icons.tsx",
+        "Tilesets/Market Objects.tsx",
+        "Tilesets/Blacksmith Walls No Shadow.tsx",
+        "Tilesets/Village Nature.tsx",
+        "Tilesets/Objects.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

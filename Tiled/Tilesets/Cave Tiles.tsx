@@ -6,6 +6,10 @@
    <object id="1" x="1" y="1" width="13" height="13"/>
   </objectgroup>
  </tile>
+ <tile id="8" probability="0.1"/>
+ <tile id="9" probability="0.1"/>
+ <tile id="10" probability="0.1"/>
+ <tile id="11" probability="0.1"/>
  <tile id="22">
   <properties>
    <property name="Collision" value="177"/>
@@ -26,6 +30,10 @@
    <property name="Collision" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="39" probability="0.1"/>
+ <tile id="40" probability="0.1"/>
+ <tile id="41" probability="0.1"/>
+ <tile id="42" probability="0.1"/>
  <tile id="53">
   <properties>
    <property name="Collision" value="177"/>
@@ -46,6 +54,10 @@
    <property name="Collision" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="70" probability="0.1"/>
+ <tile id="71" probability="0.1"/>
+ <tile id="72" probability="0.1"/>
+ <tile id="73" probability="0.1"/>
  <tile id="84">
   <properties>
    <property name="Collision" value="177"/>
@@ -66,6 +78,10 @@
    <property name="Collision" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="101" probability="0.1"/>
+ <tile id="102" probability="0.1"/>
+ <tile id="103" probability="0.1"/>
+ <tile id="104" probability="0.1"/>
  <tile id="115">
   <properties>
    <property name="Collision" value="177"/>
@@ -96,6 +112,10 @@
    <property name="Collision" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="132" probability="0.1"/>
+ <tile id="133" probability="0.1"/>
+ <tile id="134" probability="0.1"/>
+ <tile id="135" probability="0.1"/>
  <tile id="146">
   <properties>
    <property name="Collision" value="177"/>
@@ -126,6 +146,10 @@
    <property name="Collision" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="163" probability="0.1"/>
+ <tile id="164" probability="0.1"/>
+ <tile id="165" probability="0.1"/>
+ <tile id="166" probability="0.1"/>
  <tile id="177">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
