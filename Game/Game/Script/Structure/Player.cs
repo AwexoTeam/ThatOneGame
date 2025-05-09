@@ -14,9 +14,18 @@ using SharpDX.Direct3D9;
 
 namespace ThatOneGame.Structure
 {
+    public enum Direction
+    {
+        North,
+        South,
+        West,
+        East,
+
+    }
+
     public class Player
     {
-
+        public int animationTick;
         public Texture2D texture { get; protected set; }
         public Vector2 position;
         
@@ -30,6 +39,7 @@ namespace ThatOneGame.Structure
         private Vector2 minPos, maxPos;
         private int tileSize = 64;
         private Vector2 direction;
+        private Direction dir;
 
         private Rectangle hitbox;
         private Rectangle collisionBox;
@@ -67,6 +77,10 @@ namespace ThatOneGame.Structure
             if (state.IsKeyDown(Keys.S)) direction.Y++;
             if (state.IsKeyDown(Keys.D)) direction.X++;
 
+            SetDirection();
+            //tileX = animationTick;
+            //tileY = (int)dir;
+
             Vector2 directionNormalized = direction;
             if (direction != Vector2.Zero)
                 directionNormalized.Normalize();
@@ -78,7 +92,7 @@ namespace ThatOneGame.Structure
             collisionBox.Y = hitbox.Y;
 
             collisionBox.X += (int)direction.X;
-            collisionBox.Y += (int)direction.Y;
+            collisionBox.Y += (int)direction.Y + 8;
 
             var tiles = SplashScreen.map.tiles.FindAll(x => x.destination.Intersects(collisionBox));
 
@@ -110,6 +124,23 @@ namespace ThatOneGame.Structure
                 hasInit = true;
         }
 
+        private void SetDirection()
+        {
+            if (direction == Vector2.Zero)
+                return;
+
+            if (direction.Y < 0)
+                dir = Direction.North;
+
+            if (direction.Y > 0)
+                dir = Direction.South;
+
+            if (direction.X < 0)
+                dir = Direction.West;
+
+            if(direction.X > 0)
+                dir = Direction.East;
+        }
 
         public bool isCollising(Tile tile)
         {
@@ -136,7 +167,8 @@ namespace ThatOneGame.Structure
             destination.X -= tileWidth / 2;
             destination.Y -= tileHeight / 2;
 
-            batch.Draw(texture, destination, new Rectangle(tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight), Color.White);
+            Rectangle sourceRect = new Rectangle(tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight);
+            batch.Draw(texture, destination, sourceRect, Color.White);
 
             batch.DrawRectangle(hitbox, Color.Pink);
             batch.DrawRectangle(collisionBox, Color.Blue);
