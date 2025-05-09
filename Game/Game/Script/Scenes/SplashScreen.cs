@@ -5,28 +5,21 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Object = ThatOneGame.Structure.JsonObjects.Object;
+using TiledSharp;
 
 namespace ThatOneGame.Scenes
 {
     public class SplashScreen : GameScreen
     {
-        private Tilemap map;
+        private TmxMap map;
         public static List<Tile> tiles;
         private Player player;
-        private List<Tileset> sets;
-        private List<TilesetData> setData;
         
         public override void LoadContent(ContentManager content)
         {
-            sets = new List<Tileset>();
-            setData = new List<TilesetData>();
-
             base.LoadContent(content);
             tiles = new List<Tile>();
             string basePath = System.AppDomain.CurrentDomain.BaseDirectory + "//";
@@ -34,64 +27,38 @@ namespace ThatOneGame.Scenes
             //Get first avaialable map.
             string mapFile = GetMap(basePath);
 
-            if(mapFile == string.Empty)
-            {
-                File.WriteAllText("debug.txt", basePath);
-                return;
-            }
-
-            map = JsonConvert.DeserializeObject<Tilemap>(File.ReadAllText(mapFile));
-
-            //Load data in from the maps to be used
-            foreach (var _tileset in map.tilesets)
-            {
-                //Get path
-                string tilesetPath = basePath + _tileset.source.Replace("..", "");
-                string json = File.ReadAllText(tilesetPath);
-
-                //Deserialize and set values that is calced rather than read.
-                var set = JsonConvert.DeserializeObject<Tileset>(json);
-                set.name = Path.GetFileName(tilesetPath);
-                _tileset.name = Path.GetFileName(tilesetPath);
-
-                _tileset.columns = set.columns;
-                _tileset.tilecount = set.tilecount;
-                
-                sets.Add(set);
-                setData.Add(_tileset);
-            }
+            map = new TmxMap(mapFile);
 
             //Get Player texture
             LoadPlayer(basePath);
             
             //Time to fill our tiles collection.
-            foreach (var layer in map.layers)
+            foreach (var layer in map.Layers)
             {
-                for (int i = 0; i < layer.data.Count; i++)
+                for (int i = 0; i < layer.Tiles.Count; i++)
                 {
                     IterateMap(i, layer);
                 }
             }
 
-            //Order the tiles based of layer so it draws right.
-            tiles.OrderBy(x => x.layer.id);
         }
 
         private void LoadPlayer(string basePath)
         {
 
-            var playertex = Texture2D.FromFile(Engine.batch.GraphicsDevice, basePath + "Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\Base Idle.png");
+            var playertex = Texture2D.FromFile(Engine.batch.GraphicsDevice, basePath + "Data\\Tilesets\\Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\Base Idle.png");
             player = new Player(playertex, new Vector2(0, 0));
 
         }
 
         private string GetMap(string basePath)
         {
-            var files = Directory.GetFiles(basePath+"//Maps");
+            Console.WriteLine(basePath+ "//Data");
+            var files = Directory.GetFiles(basePath+ "//Data");
             if (files.Length <= 0)
                 return string.Empty;
 
-            var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmj");
+            var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmx");
 
             return mapFile;
         }
@@ -104,11 +71,11 @@ namespace ThatOneGame.Scenes
             var state = Keyboard.GetState();
         }
 
-        private void IterateMap(int iterator, Layer layer)
+        private void IterateMap(int iterator, TmxLayer layer)
         {
 
             //Get the tile ID
-            int tileId = layer.data[iterator];
+            int tileId = layer.Tiles[iterator].Gid;
             
             int originalId = tileId;
 
@@ -116,37 +83,43 @@ namespace ThatOneGame.Scenes
             if (tileId == 0)
                 return;
 
-            //Find the correct tileset and its tilesetData
-            var data = setData.Find(x => x.isInTileset(tileId));
-            var tileset = sets.Find(x => x.name == data.name);
-            var tileRules = tileset.tiles.Where(x => x.id == tileId - 1);
+            TmxLayerTile tile = layer.Tiles[iterator];
+            TmxTileset tileset = null;
 
-            //Get all the collisions if it has any.
-            List<Object> collisions = new List<Object>();
-            foreach (var tileRule in tileRules)
+            foreach (var ts in map.Tilesets)
             {
-                if(tileRule.objectgroup == null) continue;
-                if(tileRule.objectgroup.objects ==  null) continue;
-                if (tileRule.objectgroup.objects.Count <= 0) continue;
+                if (tileId < ts.FirstGid)
+                    continue;
 
-                collisions.AddRange(tileRule.objectgroup.objects);
+                if (tileId > ts.FirstGid + ts.TileCount)
+                    continue;
+
+                tileset = ts;
             }
+
+            if (tileset == null)
+                return;
+
+            int tilesetId = tileId - tileset.FirstGid;
+            TmxTilesetTile tilesetTile = null;
+            if (tileset.Tiles.ContainsKey(tilesetId))
+                tilesetTile = tileset.Tiles[tilesetId];
 
             //Since we are 0 indexed we gotta remove the first id of the tileset.
             
-            int x = tileId - data.firstgid;
+            int x = tileId - tileset.FirstGid;
             
             //Initialize our rects for drawing
             Rectangle destination = new Rectangle(0, 0, 16, 16);
             Rectangle sourceRect = new Rectangle(0, 0, 16, 16);
 
             //To find the x and y this is the math
-            if(tileId > tileset.columns)
+            if(tileId > tileset.Columns)
             {
-                int y = x / tileset.columns;
+                int y = (int)(x / tileset.Columns);
                 sourceRect.Y = y;
 
-                x -= y * tileset.columns;
+                x -= (int)(y * tileset.Columns);
             }
 
             //Set the values
@@ -154,43 +127,40 @@ namespace ThatOneGame.Scenes
 
             //What we calculated was tile coordinates.
             //So to find the pixel coordinates we multi by the tile width and height
-            sourceRect.X *= tileset.tilewidth;
-            sourceRect.Y *= tileset.tileheight;
+            sourceRect.X *= tileset.TileWidth;
+            sourceRect.Y *= tileset.TileHeight;
 
             //Same math as before really just based on i instead of tile ID
             int desX = iterator;
-            if(desX > map.width - 1)
+            if(desX > map.Width - 1)
             {
-                int y = desX / map.width;
+                int y = desX / map.Width;
                 destination.Y = y;
 
-                desX -= y * map.width;
+                desX -= y * map.Width;
             }
 
             destination.X = desX;
-            destination.X *= tileset.tilewidth;
-            destination.Y *= tileset.tileheight;
+            destination.X *= tileset.TileWidth;
+            destination.Y *= tileset.TileHeight;
 
             //Make the tile instance
-            Tile tile = new Tile(tileset, sourceRect, destination, tileset.image, false);
-            tile.layer = layer;
-            tile.id = originalId;
+            Tile _tile = new Tile(tileset, sourceRect, destination, tileset.Image.Source, false);
+            _tile.layer = layer;
+            _tile.id = originalId;
+            _tile.tile = tilesetTile;
 
             //Add our collisions
-            tile.collisions = collisions.ToList();
-
-            tiles.Add(tile);
+            
+            tiles.Add(_tile);
         }
 
-        private Layer lastLayer = null;
         public override void Draw(SpriteBatch batch)
         {
             base.Draw(batch);
 
             foreach (var tile in tiles)
             {
-                Layer layer = tile.layer;
-
                 player.Draw(batch);
                 tile.Draw(batch);
             }
@@ -199,6 +169,9 @@ namespace ThatOneGame.Scenes
             foreach (var tile in tiles)
             {
                 var rects = GetCollisionRects(tile);
+                if (rects == null)
+                    continue;
+
                 if (rects.Count <= 0)
                     continue;
 
@@ -210,24 +183,18 @@ namespace ThatOneGame.Scenes
         }
 
 
-        public Rectangle GetCollisionRect(Tile tile, int id)
+        public Rectangle GetCollisionRect(Tile tile, int groupId, int id)
         {
-            //Values converted for easy debugging
-            var obj = tile.collisions[id];
+            var data = tile.tile.ObjectGroups[groupId].Objects[id];
 
-            int x = (int)obj.x;
-            int y = (int)obj.y;
-
-            int width = (int)obj.width;
-            int height = (int)obj.height;
-
-            Rectangle myCollision = new Rectangle(0, 0, width, height);
-
-            //Set it based on where the tile is drawn
+            Rectangle myCollision = new Rectangle(0, 0, (int)data.Width, (int)data.Height);
+            
             myCollision.X = tile.destination.X;
             myCollision.Y = tile.destination.Y;
 
-            //Add the starting point of the rectangle.
+            int x = (int)data.X;
+            int y = (int)data.Y;
+
             myCollision.X += x;
             myCollision.Y += y;
 
@@ -237,9 +204,16 @@ namespace ThatOneGame.Scenes
         public List<Rectangle> GetCollisionRects(Tile tile)
         {
             List<Rectangle> rtn = new List<Rectangle>();
-            for (int i = 0; i < tile.collisions.Count; i++)
-                rtn.Add(GetCollisionRect(tile,i));
+            if (tile.tile == null)
+                return null;
 
+            for (int i = 0; i < tile.tile.ObjectGroups.Count; i++)
+            {
+                for (int j = 0; j < tile.tile.ObjectGroups[i].Objects.Count; j++)
+                {
+                    rtn.Add(GetCollisionRect(tile, i, j));
+                }
+            }
             return rtn;
         }
     }

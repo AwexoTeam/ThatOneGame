@@ -29,8 +29,7 @@ namespace ThatOneGame.Structure
             tileHeight = tileSize;
 
             origin = new Vector2(tileWidth / 2, tileHeight / 2);
-            Console.WriteLine(origin);
-
+            
             hitbox = new Rectangle(0, 0, 16, 16);
             collisionBox = new Rectangle(0, 0, 16, 8);
         }
