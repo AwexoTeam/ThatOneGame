@@ -80,7 +80,7 @@ namespace ThatOneGame.Scenes
 
         private string GetMap(string basePath)
         {
-            var files = Directory.GetFiles(basePath);
+            var files = Directory.GetFiles(basePath+"//Maps");
             var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmj");
 
             return mapFile;
