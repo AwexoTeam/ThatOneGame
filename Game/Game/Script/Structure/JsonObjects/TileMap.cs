@@ -45,11 +45,50 @@ namespace ThatOneGame.Structure.JsonObjects
             batch.Draw(tileset, destination, sourceRect, Color.White);
         }
 
-        public bool isCollising(Rectangle collision)
+        public static Rectangle GetCollisionRect(Tile tile, TmxTilesetTile tsTile, int groupId, int id)
         {
-            return false;
+            var data = tsTile.ObjectGroups[groupId].Objects[id];
+
+            Rectangle myCollision = new Rectangle(0, 0, (int)data.Width, (int)data.Height);
+
+            myCollision.X = tile.destination.X;
+            myCollision.Y = tile.destination.Y;
+
+            int x = (int)data.X;
+            int y = (int)data.Y;
+
+            myCollision.X += x;
+            myCollision.Y += y;
+
+            return myCollision;
         }
 
+        public static List<Rectangle> GetCollisionRects(Tile tile)
+        {
+            List<Rectangle> rtn = new List<Rectangle>();
+            if (tile.tile == null)
+                return null;
+
+            TmxTilesetTile checkTile = tile.tile;
+            foreach (var property in tile.tile.Properties)
+            {
+                if (property.Key.ToLower() != "collision")
+                    continue;
+
+                var num = property.Value;
+                var collisionTile = tile.tileset.Tiles[int.Parse(num)];
+                checkTile = collisionTile;
+            }
+
+            for (int i = 0; i < checkTile.ObjectGroups.Count; i++)
+            {
+                for (int j = 0; j < checkTile.ObjectGroups[i].Objects.Count; j++)
+                {
+                    rtn.Add(GetCollisionRect(tile, checkTile, i, j));
+                }
+            }
+            return rtn;
+        }
     }
 
 }
