@@ -5,12 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
 using System;
+using ThatOneGame.Structure.JsonObjects;
+using System.Timers;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ThatOneGame.Structure.JsonObjects;
-using SharpDX.Direct3D9;
 
 namespace ThatOneGame.Structure
 {
@@ -23,36 +21,46 @@ namespace ThatOneGame.Structure
 
     }
 
+    public enum PlayerState
+    {
+        Idle,
+        Walk,
+        Axe,
+        Death,
+    }
+
     public class Player
     {
-        public int animationTick;
-        public Texture2D texture { get; protected set; }
         public Vector2 position;
         
+        public int animationTick;
+
         public int tileX;
         public int tileY;
 
-        public int tileWidth;
-        public int tileHeight;
-
         private float speed = 50;
         private Vector2 minPos, maxPos;
-        private int tileSize = 64;
+        private int tileSize = 80;
         private Vector2 direction;
         private Direction dir;
+        private Direction lastDir;
 
         private Rectangle hitbox;
         private Rectangle collisionBox;
         private Rectangle tileTarget;
 
         private bool hasInit = false;
+        public static bool debugMode = false;
+
+        private KeyboardState lastState;
+        private string baseName = "Base";
+        private PlayerState currState;
+
+        private Dictionary<PlayerState, Texture2D> stateTextures;
 
         public Player(Vector2 _position)
         {
             position = _position;
-
-            tileWidth = tileSize;
-            tileHeight = tileSize;
 
             hitbox = new Rectangle(0, 0, 16, 16);
             collisionBox = new Rectangle(0, 0, 16, 8);
@@ -60,16 +68,38 @@ namespace ThatOneGame.Structure
 
         public void Init()
         {
+            stateTextures = new Dictionary<PlayerState, Texture2D>();
+
             var graphics = Engine.batch.GraphicsDevice;
             string basePath = System.AppDomain.CurrentDomain.BaseDirectory + "//";
-            basePath += "Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\Base Idle.png";
+            basePath += "Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\";
+            foreach (var state in Enum.GetValues(typeof(PlayerState)).Cast<PlayerState>())
+            {
+                Texture2D texture = Texture2D.FromFile(graphics, $"{basePath}//{baseName} {state}.png");
+                stateTextures.Add(state,texture);
+            }
 
-            texture = Texture2D.FromFile(graphics, basePath);
+            Timer timer = new Timer(150);
+            timer.Elapsed += AnimationTicked;
+            timer.Start();
+        }
+
+        private void AnimationTicked(object sender, ElapsedEventArgs e)
+        {
+            animationTick++;
+            Texture2D texture = stateTextures[currState];
+            if (animationTick * tileSize < texture.Width)
+                return;
+
+            animationTick = 0;
         }
 
         public void Update()
         {
             var state = Keyboard.GetState();
+            
+            if (state.IsKeyDown(Keys.F10) && !lastState.IsKeyDown(Keys.F10))
+                debugMode = !debugMode;
 
             direction = Vector2.Zero;
             if (state.IsKeyDown(Keys.W)) direction.Y--;
@@ -77,9 +107,11 @@ namespace ThatOneGame.Structure
             if (state.IsKeyDown(Keys.S)) direction.Y++;
             if (state.IsKeyDown(Keys.D)) direction.X++;
 
+            currState = direction == Vector2.Zero ? PlayerState.Idle : PlayerState.Walk;
+
             SetDirection();
-            //tileX = animationTick;
-            //tileY = (int)dir;
+            tileX = animationTick;
+            tileY = (int)dir;
 
             Vector2 directionNormalized = direction;
             if (direction != Vector2.Zero)
@@ -97,7 +129,10 @@ namespace ThatOneGame.Structure
             var tiles = SplashScreen.map.tiles.FindAll(x => x.destination.Intersects(collisionBox));
 
             if (tiles.Count <= 0)
+            {
+                lastState = state;
                 return;
+            }
 
             bool isColling = false;
             foreach (var tile in tiles)
@@ -110,7 +145,10 @@ namespace ThatOneGame.Structure
             }
 
             if (isColling && hasInit)
+            {
+                lastState = state;
                 return;
+            }
 
             position += directionNormalized * speed * Engine.deltaTime;
             position = Vector2.Round(position);
@@ -122,6 +160,8 @@ namespace ThatOneGame.Structure
 
             if (!hasInit)
                 hasInit = true;
+
+            lastState = state;
         }
 
         private void SetDirection()
@@ -140,6 +180,12 @@ namespace ThatOneGame.Structure
 
             if(direction.X > 0)
                 dir = Direction.East;
+
+            if (lastDir != dir)
+            {
+                lastDir = dir;
+                animationTick = 0;
+            }
         }
 
         public bool isCollising(Tile tile)
@@ -163,12 +209,23 @@ namespace ThatOneGame.Structure
 
         public void Draw(SpriteBatch batch)
         {
-            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, tileWidth, tileHeight);
-            destination.X -= tileWidth / 2;
-            destination.Y -= tileHeight / 2;
+            Rectangle destination = new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);
+            destination.X -= tileSize / 2 - 8;
+            destination.Y -= tileSize / 2 - 8;
 
-            Rectangle sourceRect = new Rectangle(tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight);
+            int x = tileX * tileSize;
+            int y = tileY * tileSize;
+
+            int width = tileSize;
+            int height = tileSize;
+
+            Rectangle sourceRect = new Rectangle(x, y, width, height);
+
+            Texture2D texture = stateTextures[currState];
             batch.Draw(texture, destination, sourceRect, Color.White);
+
+            if (!debugMode)
+                return;
 
             batch.DrawRectangle(hitbox, Color.Pink);
             batch.DrawRectangle(collisionBox, Color.Blue);

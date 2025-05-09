@@ -29,8 +29,29 @@ namespace ThatOneGame.Structure
 
         public void InitializeMap()
         {
-            map = new TmxMap(mapPath);
-            
+            try
+            {
+                map = new TmxMap(mapPath);
+
+            }
+            catch (System.ArgumentException e)
+            {
+                Console.WriteLine("Invalid Arugment probably no map files");
+                Console.WriteLine(e.Message);
+                Console.WriteLine();
+
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Console.WriteLine("Couldnt find certain file");
+                Console.WriteLine(e.Message);
+                Console.WriteLine();
+
+            }
+
+            if (map == null)
+                return;
+
             //Time to fill our tiles collection.
             foreach (var layer in map.Layers)
             {
