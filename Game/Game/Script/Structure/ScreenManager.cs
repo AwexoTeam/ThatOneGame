@@ -1,4 +1,4 @@
-﻿using HentaiGame.Scenes;
+﻿using ThatOneGame.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HentaiGame.Structure
+namespace ThatOneGame.Structure
 {
     public class ScreenManager
     {

@@ -1,6 +1,5 @@
-﻿using HentaiGame.Script.Structure;
-using HentaiGame.Script.Structure.JsonObjects;
-using HentaiGame.Structure;
+﻿using ThatOneGame.Structure.JsonObjects;
+using ThatOneGame.Structure;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,9 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Object = HentaiGame.Script.Structure.JsonObjects.Object;
+using Object = ThatOneGame.Structure.JsonObjects.Object;
 
-namespace HentaiGame.Scenes
+namespace ThatOneGame.Scenes
 {
     public class SplashScreen : GameScreen
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace HentaiGame.Structure
+namespace ThatOneGame.Structure
 {
     public class GameScreen
     {

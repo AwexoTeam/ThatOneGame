@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace HentaiGame.Script.Structure.JsonObjects
+namespace ThatOneGame.Structure.JsonObjects
 {
     public class Chunk
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HentaiGame.Script.Structure
+namespace ThatOneGame.Structure
 {
     public class Map
     {

@@ -1,2 +1,2 @@
-﻿using var game = new HentaiGame.Engine();
+﻿using var game = new ThatOneGame.Engine();
 game.Run();

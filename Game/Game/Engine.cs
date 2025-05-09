@@ -1,12 +1,14 @@
-﻿using HentaiGame.Structure;
+﻿using ThatOneGame.Structure;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1;
 using System;
+using System.Linq;
+using TiledSharp;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
-namespace HentaiGame
+namespace ThatOneGame
 {
     public class Engine : Game
     {
@@ -28,6 +30,7 @@ namespace HentaiGame
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()

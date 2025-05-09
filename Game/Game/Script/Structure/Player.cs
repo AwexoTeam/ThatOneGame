@@ -1,5 +1,5 @@
 ﻿
-using HentaiGame.Scenes;
+using ThatOneGame.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HentaiGame.Script.Structure
+namespace ThatOneGame.Structure
 {
     public class Player : Sprite
     {
