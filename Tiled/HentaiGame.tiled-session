@@ -5,10 +5,10 @@
     },
     "activeFile": "Collision test map.tmx",
     "expandedProjectPaths": [
-        "Map/Test Map",
-        ".",
         "Map",
-        "Tilesets"
+        ".",
+        "Tilesets",
+        "Map/Test Map"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -40,10 +40,10 @@
         },
         "Collision test map.tmx": {
             "scale": 1.2033333333333331,
-            "selectedLayer": 6,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 622.0221606648201,
-                "y": 148.75346260387815
+                "x": 654.432132963989,
+                "y": 332.40997229916906
             }
         },
         "D:/HentaiGame/Maps/FirstMap.tmj": {
@@ -268,21 +268,17 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "Tilesets/Village Terrain.tsx",
-        "Tilesets/Rural Village Objects.tsx",
-        "Tilesets/Crypt Objects.tsx",
-        "Collision test map.tmx",
-        "Tilesets/Cave Tiles.tsx"
+        "Collision test map.tmx"
     ],
     "project": "HentaiGame.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "Collision test map.tmx",
         "Tilesets/Village Terrain.tsx",
         "Tilesets/Village Nature.tsx",
         "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Collision test map.tmx",
         "Tilesets/Rural Village Objects.tsx",
         "Tilesets/Crypt Objects.tsx",
-        "Collision test map.tmx",
         "Tilesets/Cave Tiles.tsx",
         "Tilesets/Rural Village Buildings.tsx",
         "Tilesets/Mesoamerican Dungeon Walls.tsx",

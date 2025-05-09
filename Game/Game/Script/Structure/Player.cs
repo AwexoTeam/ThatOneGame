@@ -73,8 +73,10 @@ namespace ThatOneGame.Structure
             stateTextures = new Dictionary<PlayerState, Texture2D>();
 
             var graphics = Engine.batch.GraphicsDevice;
-            string basePath = System.AppDomain.CurrentDomain.BaseDirectory + "//";
-            basePath += "Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\";
+            string basePath = System.AppDomain.CurrentDomain.BaseDirectory;
+            basePath += "..\\Tiles\\Sprite Pack - New\\16x16\\Base\\Base Character PNG\\";
+
+            Console.WriteLine(basePath);
             foreach (var state in Enum.GetValues(typeof(PlayerState)).Cast<PlayerState>())
             {
                 Texture2D texture = Texture2D.FromFile(graphics, $"{basePath}//{baseName} {state}.png");

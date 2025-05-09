@@ -24,7 +24,7 @@ namespace ThatOneGame.Scenes
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
-            string basePath = System.AppDomain.CurrentDomain.BaseDirectory + "//";
+            string basePath = System.AppDomain.CurrentDomain.BaseDirectory;
 
             //Get first avaialable map.
             string mapFile = Map.GetFirstMap(basePath);

@@ -149,13 +149,21 @@ namespace ThatOneGame.Structure
 
         public static string GetFirstMap(string basePath)
         {
-            var files = Directory.GetFiles(basePath + "//Data");
-            if (files.Length <= 0)
+            try
+            {
+                var files = Directory.GetFiles(basePath + @"..\Tiled\");
+                if (files.Length <= 0)
+                    return string.Empty;
+
+                var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmx");
+
+                return mapFile;
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                Console.WriteLine("Dir not found \n" + basePath);
                 return string.Empty;
-
-            var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmx");
-
-            return mapFile;
+            }
         }
     }
 }
