@@ -18,9 +18,7 @@ namespace ThatOneGame.Scenes
     {
         public static Map map;
         private Player player;
-        private int playerLayer;
-
-
+        
         public override void LoadContent(ContentManager content)
         {
             base.LoadContent(content);
@@ -34,6 +32,7 @@ namespace ThatOneGame.Scenes
             //Get Player texture
             player = new Player(new Vector2(0,0));
             player.Init();
+
 
         }
 
@@ -51,7 +50,7 @@ namespace ThatOneGame.Scenes
             foreach (var tile in map.tiles)
             {
                 tile.Draw(batch);
-                if (playerLayer == tile.order)
+                if (map.playerLayer == tile.order && !playerHasBeenDrawn)
                 {
                     playerHasBeenDrawn = true;
                     player.Draw(batch);

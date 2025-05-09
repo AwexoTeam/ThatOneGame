@@ -268,7 +268,6 @@ namespace ThatOneGame.Structure
             return false;
         }
 
-
         public void Draw(SpriteBatch batch)
         {
             Rectangle destination = new Rectangle((int)position.X, (int)position.Y, tileSize, tileSize);

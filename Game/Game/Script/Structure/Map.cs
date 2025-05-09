@@ -12,7 +12,7 @@ namespace ThatOneGame.Structure
 {
     public class Map
     {
-
+        public int playerLayer;
         public string name;
         public string mapPath;
         public TmxMap map;
@@ -58,10 +58,16 @@ namespace ThatOneGame.Structure
                 for (int i = 0; i < layer.Tiles.Count; i++)
                 {
                     IterateMap(i, layer);
+                    if (layer.Properties.Count <= 0)
+                        continue;
+
+                    if (layer.Properties.ContainsKey("Player"))
+                        playerLayer = map.Layers.ToList().FindIndex(x => x == layer);
                 }
             }
 
             tiles.OrderBy(x => x.order);
+            Console.WriteLine("Player layer: " + playerLayer);
         }
 
         private void IterateMap(int iterator, TmxLayer layer)
