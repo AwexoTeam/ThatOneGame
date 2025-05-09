@@ -37,6 +37,7 @@ namespace ThatOneGame.Structure
 
         public void Update()
         {
+
             var state = Keyboard.GetState();
 
             direction = Vector2.Zero;
@@ -69,6 +70,8 @@ namespace ThatOneGame.Structure
             tileTarget = tile.First().destination;
             if (tile.Any(x => x.isCollising(collisionBox)))
                 return;
+
+
 
             position += directionNormalized * speed * Engine.deltaTime;
             position = Vector2.Round(position);

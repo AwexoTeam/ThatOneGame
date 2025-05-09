@@ -3,12 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Tilesets/Village Terrain.tsx",
     "expandedProjectPaths": [
         "Map/Test Map",
+        ".",
         "Tilesets",
-        "Map",
-        "."
+        "Map"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -180,7 +180,7 @@
         },
         "Tilesets/Village Terrain.tsx": {
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 4
         },
         "Village Nature.tsx": {
             "scaleInDock": 1,
@@ -200,13 +200,14 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
+        "Tilesets/Village Terrain.tsx"
     ],
     "project": "HentaiGame.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Tilesets/Village Terrain.tsx",
         "Map/Test Map/Collision test map.tmx",
         "Map/Test Map/Test Map.tmx",
-        "Tilesets/Village Terrain.tsx",
         "Tilesets/Rural Village Objects.tsx",
         "Tilesets/Village Nature.tsx",
         "Village Nature.tsx",

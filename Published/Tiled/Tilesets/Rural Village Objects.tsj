@@ -1,0 +1,14 @@
+{ "columns":38,
+ "image":"..\/..\/..\/..\/..\/..\/Tiles\/Village\/Tiles\/Rural Village Objects.png",
+ "imageheight":672,
+ "imagewidth":608,
+ "margin":0,
+ "name":"Rural Village Objects",
+ "spacing":0,
+ "tilecount":1596,
+ "tiledversion":"1.11.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

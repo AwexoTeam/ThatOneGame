@@ -96,8 +96,10 @@ namespace ThatOneGame.Scenes
 
         private void IterateMap(int iterator, Layer layer)
         {
+
             //Get the tile ID
             int tileId = layer.data[iterator];
+            
             int originalId = tileId;
 
             //If its empty tile theres no need to do math
@@ -107,7 +109,7 @@ namespace ThatOneGame.Scenes
             //Find the correct tileset and its tilesetData
             var data = setData.Find(x => x.isInTileset(tileId));
             var tileset = sets.Find(x => x.name == data.name);
-            var tileRules = tileset.tiles.Where(x => x.id == tileId);
+            var tileRules = tileset.tiles.Where(x => x.id == tileId - 1);
 
             //Get all the collisions if it has any.
             List<Object> collisions = new List<Object>();
@@ -121,8 +123,9 @@ namespace ThatOneGame.Scenes
             }
 
             //Since we are 0 indexed we gotta remove the first id of the tileset.
+            
             int x = tileId - data.firstgid;
-
+            
             //Initialize our rects for drawing
             Rectangle destination = new Rectangle(0, 0, 16, 16);
             Rectangle sourceRect = new Rectangle(0, 0, 16, 16);
@@ -173,29 +176,12 @@ namespace ThatOneGame.Scenes
         public override void Draw(SpriteBatch batch)
         {
             base.Draw(batch);
+
             foreach (var tile in tiles)
             {
                 Layer layer = tile.layer;
 
-                //Even as a test this hurts me.
-                //But essentially if its a new layer, check if theres properties if so check if its the player property and if so draw the player
-                //regardless then draw tile
-                if(lastLayer == null || tile.layer != lastLayer)
-                {
-                    if (layer.properties != null && layer.properties.Count > 0)
-                    {
-                        foreach (var item in layer.properties)
-                        {
-                            Console.WriteLine("Property: " + item);
-                            if(item.name.ToLower() == "player")
-                            {
-                                player.Draw(batch);
-                            }
-                        }
-                    }
-
-                }
-
+                player.Draw(batch);
                 tile.Draw(batch);
             }
 
