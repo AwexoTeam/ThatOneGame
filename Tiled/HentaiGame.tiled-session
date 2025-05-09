@@ -12,6 +12,23 @@
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Collision test map.tmx": {
+            "scale": 0.6867708333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 763.7190960109206,
+                "y": 412.0734111936902
+            }
+        },
+        "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Tilesets/Rural Village Objects.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Tilesets/Village Nature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Tilesets/Village Terrain.tsx": {
+            "scaleInDock": 1
+        },
         "C:/Users/Brioche/Documents/GitHub/Tilesets/Rural Village Objects.tsx": {
             "scaleInDock": 1
         },
@@ -25,7 +42,7 @@
             "scale": 1.2033333333333331,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 621.6066481994461,
+                "x": 622.0221606648201,
                 "y": 148.75346260387815
             }
         },
@@ -261,17 +278,17 @@
     "property.type": "int",
     "recentFiles": [
         "Tilesets/Village Terrain.tsx",
+        "Tilesets/Village Nature.tsx",
+        "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Collision test map.tmx",
         "Tilesets/Rural Village Objects.tsx",
         "Tilesets/Crypt Objects.tsx",
-        "Tilesets/Cave Tiles.tsx",
         "Collision test map.tmx",
+        "Tilesets/Cave Tiles.tsx",
         "Tilesets/Rural Village Buildings.tsx",
         "Tilesets/Mesoamerican Dungeon Walls.tsx",
         "Tilesets/Fishing Icons.tsx",
         "Tilesets/Market Objects.tsx",
-        "Tilesets/Blacksmith Walls No Shadow.tsx",
-        "Tilesets/Village Nature.tsx",
-        "Tilesets/Objects.tsx"
+        "Tilesets/Blacksmith Walls No Shadow.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

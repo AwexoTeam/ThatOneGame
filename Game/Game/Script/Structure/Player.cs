@@ -25,7 +25,7 @@ namespace ThatOneGame.Structure
     {
         Idle,
         Walk,
-        Axe,
+        Attack,
         Death,
     }
 
@@ -53,8 +53,10 @@ namespace ThatOneGame.Structure
         public static bool debugMode = false;
 
         private KeyboardState lastState;
+        private MouseState lastMouseState;
         private string baseName = "Base";
         private PlayerState currState;
+        private Texture2D swordTexture;
 
         private Dictionary<PlayerState, Texture2D> stateTextures;
 
@@ -79,6 +81,9 @@ namespace ThatOneGame.Structure
                 stateTextures.Add(state,texture);
             }
 
+            var swordPath = basePath + @"..\Base Tools PNG\Base Attack (One Hand Weapons)\Base Sword\Base Sword 01.png";
+            swordTexture = Texture2D.FromFile(graphics,swordPath);
+
             Timer timer = new Timer(150);
             timer.Elapsed += AnimationTicked;
             timer.Start();
@@ -96,10 +101,43 @@ namespace ThatOneGame.Structure
 
         public void Update()
         {
+
             var state = Keyboard.GetState();
-            
+            var mouseState = Mouse.GetState();
+
             if (state.IsKeyDown(Keys.F10) && !lastState.IsKeyDown(Keys.F10))
                 debugMode = !debugMode;
+
+            if (mouseState.LeftButton == ButtonState.Pressed && !(lastMouseState.LeftButton == ButtonState.Pressed))
+            {
+                animationTick = 0;
+                currState = PlayerState.Attack;
+                lastMouseState = mouseState;
+                return;
+            }
+
+            if(currState == PlayerState.Attack)
+            {
+                tileX = animationTick;
+                
+                if (animationTick != 5)
+                {
+                    float div = animationTick;
+                    float t = div / 5f;
+                    Vector2 knockBack = Vector2.Zero;
+                    if (dir == Direction.North) knockBack.Y++;
+                    if (dir == Direction.South) knockBack.Y--;
+                    if (dir == Direction.East) knockBack.X--;
+                    if (dir == Direction.West) knockBack.X++;
+
+                    UpdateCamera();
+
+                    return;
+                }
+
+                animationTick = 0;
+                currState = PlayerState.Idle;
+            }
 
             direction = Vector2.Zero;
             if (state.IsKeyDown(Keys.W)) direction.Y--;
@@ -131,6 +169,7 @@ namespace ThatOneGame.Structure
             if (tiles.Count <= 0)
             {
                 lastState = state;
+                lastMouseState = mouseState;
                 return;
             }
 
@@ -147,23 +186,44 @@ namespace ThatOneGame.Structure
             if (isColling && hasInit)
             {
                 lastState = state;
+                lastMouseState = mouseState;
                 return;
             }
 
+            UpdateCamera();
+
             position += directionNormalized * speed * Engine.deltaTime;
             position = Vector2.Round(position);
+
+            if (!hasInit)
+                hasInit = true;
+
+            lastState = state;
+            lastMouseState = mouseState;
+        }
+
+        private void UpdateCamera()
+        {
 
             var dx = (Engine.RESOLUTION_WIDTH / 2) - position.X;
             var dy = (Engine.RESOLUTION_HEIGHT / 2) - position.Y;
 
             Engine.transform = Matrix.CreateTranslation(dx, dy, 1);
 
-            if (!hasInit)
-                hasInit = true;
-
-            lastState = state;
         }
 
+        private float lerp(float a, float b, float f)
+        {
+            return (float)(a * (1.0 - f) + (b * f));
+        }
+
+        private Vector2 lerp(Vector2 a, Vector2 b, float f)
+        {
+            float lerpedX = lerp(a.X, b.X, f);
+            float lerpedY = lerp(a.Y, b.Y, f);
+
+            return new Vector2(lerpedX, lerpedY);
+        }
         private void SetDirection()
         {
             if (direction == Vector2.Zero)
@@ -223,6 +283,11 @@ namespace ThatOneGame.Structure
 
             Texture2D texture = stateTextures[currState];
             batch.Draw(texture, destination, sourceRect, Color.White);
+
+            if(currState == PlayerState.Attack)
+            {
+                batch.Draw(swordTexture, destination, sourceRect, Color.White);
+            }
 
             if (!debugMode)
                 return;
