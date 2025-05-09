@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using TiledSharp;
 using System.Linq;
+using System.Timers;
 
 namespace ThatOneGame.Scenes
 {
@@ -18,6 +19,7 @@ namespace ThatOneGame.Scenes
         public static Map map;
         private Player player;
         private int playerLayer;
+
 
         public override void LoadContent(ContentManager content)
         {
@@ -32,8 +34,8 @@ namespace ThatOneGame.Scenes
             //Get Player texture
             player = new Player(new Vector2(0,0));
             player.Init();
-        }
 
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -58,6 +60,9 @@ namespace ThatOneGame.Scenes
 
             if (!playerHasBeenDrawn)
                 player.Draw(batch);
+
+            if (!Player.debugMode)
+                return;
 
             foreach (var tile in map.tiles)
             {
