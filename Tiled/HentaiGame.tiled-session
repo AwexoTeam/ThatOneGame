@@ -206,8 +206,8 @@
     "property.type": "bool",
     "recentFiles": [
         "Tilesets/Village Terrain.tsx",
-        "Map/Test Map/Collision test map.tmx",
         "Map/Test Map/Test Map.tmx",
+        "Map/Test Map/Collision test map.tmx",
         "Tilesets/Rural Village Objects.tsx",
         "Tilesets/Village Nature.tsx",
         "Village Nature.tsx",
