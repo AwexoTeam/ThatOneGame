@@ -9,6 +9,7 @@ namespace ThatOneGame.Structure.JsonObjects
 {
     public class Tile
     {
+        public int order;
         public int id;
         public bool isEmpty;
         public Rectangle sourceRect;
@@ -47,15 +48,6 @@ namespace ThatOneGame.Structure.JsonObjects
         public bool isCollising(Rectangle collision)
         {
             return false;
-            //if (collisions == null || collisions.Count <= 0)
-            //    return false;
-
-            //for (int i = 0; i < collisions.Count; i++)
-            //{
-            //    Rectangle myCollision = GetCollisionRect(i);
-            //    return myCollision.Intersects(collision);
-            //}
-            //return false;
         }
 
     }
