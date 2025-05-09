@@ -33,6 +33,13 @@ namespace ThatOneGame.Scenes
 
             //Get first avaialable map.
             string mapFile = GetMap(basePath);
+
+            if(mapFile == string.Empty)
+            {
+                File.WriteAllText("debug.txt", basePath);
+                return;
+            }
+
             map = JsonConvert.DeserializeObject<Tilemap>(File.ReadAllText(mapFile));
 
             //Load data in from the maps to be used
@@ -81,6 +88,9 @@ namespace ThatOneGame.Scenes
         private string GetMap(string basePath)
         {
             var files = Directory.GetFiles(basePath+"//Maps");
+            if (files.Length <= 0)
+                return string.Empty;
+
             var mapFile = Array.Find(files, x => Path.GetExtension(x) == ".tmj");
 
             return mapFile;
