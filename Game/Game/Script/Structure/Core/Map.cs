@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ThatOneGame.Structure.JsonObjects;
 using TiledSharp;
 
 namespace ThatOneGame.Structure
@@ -34,7 +31,7 @@ namespace ThatOneGame.Structure
                 map = new TmxMap(mapPath);
 
             }
-            catch (System.ArgumentException e)
+            catch (ArgumentException e)
             {
                 Console.WriteLine("Invalid Arugment probably no map files");
                 Console.WriteLine(e.Message);
@@ -67,7 +64,6 @@ namespace ThatOneGame.Structure
             }
 
             tiles.OrderBy(x => x.order);
-            Console.WriteLine("Player layer: " + playerLayer);
         }
 
         private void IterateMap(int iterator, TmxLayer layer)

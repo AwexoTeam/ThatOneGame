@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TiledSharp;
 
 
-namespace ThatOneGame.Structure.JsonObjects
+namespace ThatOneGame.Structure
 {
     public class Tile
     {

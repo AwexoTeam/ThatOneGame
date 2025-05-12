@@ -1,51 +1,46 @@
-﻿using ThatOneGame.Structure.JsonObjects;
-using ThatOneGame.Structure;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using TiledSharp;
-using System.Linq;
-using System.Timers;
+using ThatOneGame.GameCode;
 
-namespace ThatOneGame.Scenes
+namespace ThatOneGame.Structure
 {
-    public class SplashScreen : GameScreen
+    public class TiledScreen : GameScreen
     {
-        public static Map map;
         private Player player;
-        
-        public override void LoadContent(ContentManager content)
+        private string mapPath;
+
+        public TiledScreen()
         {
-            base.LoadContent(content);
             string basePath = System.AppDomain.CurrentDomain.BaseDirectory;
-
-            //Get first avaialable map.
-            string mapFile = Map.GetFirstMap(basePath);
-            map = new Map("Test", mapFile);
-            map.InitializeMap();
-
-            //Get Player texture
-            player = new Player(new Vector2(0,0));
-            player.Init();
-
-
+            mapPath = Map.GetFirstMap(basePath);
         }
 
-        public override void Update(GameTime gameTime)
+        public TiledScreen(string mapName)
         {
-            base.Update(gameTime);
-            player.Update();
+            this.mapPath = mapName;
+        }
+
+        public override void Start()
+        {
+            base.Start();
+
+            map = new Map("Test", mapPath);
+            map.InitializeMap();
+        }
+
+        public override void AddGameObject(GameObject gameObject)
+        {
+            if (gameObject is Player)
+                player = (Player)gameObject;
+
+            base.AddGameObject(gameObject);
         }
 
         public override void Draw(SpriteBatch batch)
         {
-            base.Draw(batch);
-
+            
             bool playerHasBeenDrawn = false;
             foreach (var tile in map.tiles)
             {
@@ -60,7 +55,13 @@ namespace ThatOneGame.Scenes
             if (!playerHasBeenDrawn)
                 player.Draw(batch);
 
-            if (!Player.debugMode)
+            DrawDebug(batch);
+            base.Draw(batch);
+        }
+
+        public void DrawDebug(SpriteBatch batch)
+        {
+            if (!Globals.DebugMode)
                 return;
 
             foreach (var tile in map.tiles)
@@ -78,6 +79,5 @@ namespace ThatOneGame.Scenes
                 }
             }
         }
-
     }
 }
