@@ -9,6 +9,7 @@ namespace ThatOneGame.Structure
 {
     public static class Globals
     {
+        public static string[] initialArgs;
         public static int RESOLUTION_WIDTH = 400;
         public static int RESOLUTION_HEIGHT = 225;
 

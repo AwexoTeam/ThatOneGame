@@ -14,7 +14,13 @@ namespace ThatOneGame.Structure
         public TiledScreen()
         {
             string basePath = System.AppDomain.CurrentDomain.BaseDirectory;
-            mapPath = Map.GetFirstMap(basePath);
+            if (Globals.initialArgs == null || Globals.initialArgs.Length <= 0)
+                mapPath = Map.GetFirstMap(basePath);
+            else
+            {
+                Debug.LogDebug("Starting up map " + Globals.initialArgs[0]);
+                mapPath = Globals.initialArgs[0];
+            }
         }
 
         public TiledScreen(string mapName)
