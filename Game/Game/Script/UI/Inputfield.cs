@@ -211,5 +211,11 @@ namespace ThatOneGame.Structure.UI
             }
 
         }
+
+        public void Reset()
+        {
+            currentText = "";
+            cursorPosition = new Vector2();
+        }
     }
 }

@@ -51,7 +51,7 @@ namespace ThatOneGame.GameCode
             if (Input.IsKeyUp(Keys.Enter))
             {
                 CommandManager.instance.TryCommand(inputField.currentText, out currResponse);
-                inputField.currentText = "";
+                inputField.Reset();
             }
         }
 
