@@ -46,5 +46,16 @@ namespace ThatOneGame.Structure
             ScreenManager.instance.screen.AddGameObject(gameObject);
             return gameObject;
         }
+
+        public static T FindObjectOfType<T>() where T : GameObject
+            => FindObjectsOfType<T>().First();
+
+        public static T[] FindObjectsOfType<T>() where T : GameObject
+        {
+            var gobjs = ScreenManager.instance.screen.GetGameObjects();
+            var validTypes = gobjs.Where(x => x.GetType().IsAssignableFrom(typeof(T))).Cast<T>();
+
+            return validTypes.ToArray();
+        }
     }
 }

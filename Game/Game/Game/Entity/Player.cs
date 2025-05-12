@@ -22,6 +22,8 @@ namespace ThatOneGame.GameCode
         private bool hasInit = false;
         private Texture2D swordTexture;
 
+        private ConsoleUI console;
+
         public Player() : base ()
         {
             player = this;
@@ -34,12 +36,28 @@ namespace ThatOneGame.GameCode
             var swordPath = basePath + @"..\Base Tools PNG\Base Attack (One Hand Weapons)\Base Sword\Base Sword 01.png";
             swordTexture = Texture2D.FromFile(Engine.batch.GraphicsDevice, swordPath);
         }
-        
+
+        public override void Start()
+        {
+            base.Start();
+
+            console = new ConsoleUI();
+            console.Start();
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            console.Update(gameTime);
 
-            if (player.blockInput)
+            if (Input.IsKeyUp(Keys.Q))
+            {
+                console.isVisible = !console.isVisible;
+            }
+
+            console.inputField.selected = console.isVisible;
+
+            if (console.isVisible)
                 return;
 
             if (Input.IsMouseUp(0))
@@ -134,6 +152,12 @@ namespace ThatOneGame.GameCode
             batch.DrawRectangle(hitbox, Color.Pink);
             batch.DrawRectangle(collisionBox, Color.Blue);
             batch.DrawRectangle(tileTarget, Color.Red);
+        }
+
+        public override void UIDraw(SpriteBatch batch)
+        {
+            base.UIDraw(batch);
+            console.UIDraw(batch);
         }
     }
 }

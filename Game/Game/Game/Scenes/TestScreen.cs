@@ -14,8 +14,7 @@ namespace ThatOneGame.GameCode
         {
             AddGameObject(new Player());
             AddGameObject(new BattleUI());
-            AddGameObject(new ConsoleUI());
-
+            
             base.Start();
         }
     }

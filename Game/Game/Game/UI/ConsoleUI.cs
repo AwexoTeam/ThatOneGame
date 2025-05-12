@@ -15,7 +15,9 @@ namespace ThatOneGame.GameCode
     public class ConsoleUI : SpriteObject
     {
 
-        private Inputfield inputField;
+        public bool isVisible;
+
+        public Inputfield inputField;
         private string currResponse = "";
         private SpriteFont font;
 
@@ -44,6 +46,7 @@ namespace ThatOneGame.GameCode
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            inputField.visible = isVisible;
             inputField.position = new Vector2(10, (int)Globals.screenSize.Y - inputField.textBoxHeight - 5);
             inputField.textBoxWidth = (int)Globals.screenSize.X - 20;
             inputField.Update();
@@ -57,6 +60,9 @@ namespace ThatOneGame.GameCode
 
         public override void UIDraw(SpriteBatch batch)
         {
+            if (!isVisible)
+                return;
+
             base.UIDraw(batch);
             inputField.Draw(batch);
 

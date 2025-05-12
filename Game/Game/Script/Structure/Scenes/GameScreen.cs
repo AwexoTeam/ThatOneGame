@@ -69,5 +69,7 @@ namespace ThatOneGame.Structure
             gameObjects = gameObjects.OrderBy(x => x.priority).ToList();
             renderables = renderables.OrderBy(x => x.priority).ToList();
         }
+
+        public List<GameObject> GetGameObjects() => gameObjects;
     }
 }

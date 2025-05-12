@@ -190,6 +190,9 @@ namespace ThatOneGame.Structure.UI
 
         private void RemoveText()
         {
+            if (currentText == "" || currentText == string.Empty)
+                return;
+
             Vector2 spacing = new Vector2();
             spacing = _font.MeasureString(currentText.Last().ToString());
             currentText = currentText.Remove(currentText.Length - 1);
