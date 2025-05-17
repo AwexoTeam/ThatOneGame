@@ -23,6 +23,7 @@ namespace ThatOneGame.GameCode
         private Texture2D swordTexture;
 
         private ConsoleUI console;
+        public Dictionary<Stats, float> stats;
 
         public Player() : base ()
         {
@@ -35,6 +36,25 @@ namespace ThatOneGame.GameCode
             baseName = "Base";
             var swordPath = basePath + @"..\Base Tools PNG\Base Attack (One Hand Weapons)\Base Sword\Base Sword 01.png";
             swordTexture = Texture2D.FromFile(Engine.batch.GraphicsDevice, swordPath);
+
+            stats = new Dictionary<Stats, float>();
+
+            var values = Enum.GetValues(typeof(Stats)).Cast<Stats>();
+            foreach (var stat in values)
+            {
+                if (stats.ContainsKey(stat))
+                    continue;
+
+                stats.Add(stat, 1);
+            }
+
+            stats[Stats.Max_Hp] = 100;
+            stats[Stats.Max_Mp] = 100;
+            stats[Stats.Max_Sp] = 100;
+
+            stats[Stats.Hp] = stats[Stats.Max_Hp];
+            stats[Stats.Mp] = stats[Stats.Max_Mp];
+            stats[Stats.Sp] = stats[Stats.Max_Sp];
         }
 
         public override void Start()
@@ -58,6 +78,9 @@ namespace ThatOneGame.GameCode
             console.inputField.selected = console.isVisible;
 
             if (console.isVisible)
+                return;
+
+            if (blockInput)
                 return;
 
             if (Input.IsMouseUp(0))
@@ -158,6 +181,12 @@ namespace ThatOneGame.GameCode
         {
             base.UIDraw(batch);
             console.UIDraw(batch);
+        }
+
+        public void DoDamage(Enemy enemy)
+        {
+            var dmg = enemy.stats[Stats.Min_Damage];
+            stats[Stats.Hp] -= dmg;
         }
     }
 }

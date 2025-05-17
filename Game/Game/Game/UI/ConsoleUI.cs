@@ -19,25 +19,15 @@ namespace ThatOneGame.GameCode
 
         public Inputfield inputField;
         private string currResponse = "";
-        private SpriteFont font;
-
+        
         public override void Start()
         {
-            string fontData;
-            using (var stream = TitleContainer.OpenStream("Fonts/test.fnt"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    fontData = reader.ReadToEnd();
-                }
-            }
-
+            
             inputField = new Inputfield();
-            font = BMFontLoader.Load(fontData, name => TitleContainer.OpenStream("Fonts/" + name), Engine.batch.GraphicsDevice);
             inputField.textBoxWidth = (int)Globals.screenSize.X - 20;
             inputField.position = new Vector2(10, (int)Globals.screenSize.Y - inputField.textBoxHeight-5);
             inputField.visible = true;
-            inputField._font = font;
+            inputField._font = Globals.font;
 
             inputField._length = 999999;
             base.Start();
@@ -69,7 +59,7 @@ namespace ThatOneGame.GameCode
             Vector2 rectPos = new Vector2(inputField.position.X, inputField.position.Y - inputField.textBoxHeight-5);
             Rectangle rect = new Rectangle((int)rectPos.X, (int)rectPos.Y, inputField.textBoxWidth, inputField.textBoxHeight);
             batch.FillRectangle(rect, Color.White);
-            batch.DrawString(font, currResponse, rectPos, Color.Black);
+            batch.DrawString(Globals.font, currResponse, rectPos, Color.Black);
         }
     }
 }

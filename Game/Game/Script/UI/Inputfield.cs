@@ -64,7 +64,6 @@ namespace ThatOneGame.Structure.UI
                 if (!TryGetChar(pressedKey, out pressedKeyChar))
                     return;
 
-                Debug.LogDebug(pressedKeyChar);
                 AddMoreText(pressedKeyChar);
             }
         }

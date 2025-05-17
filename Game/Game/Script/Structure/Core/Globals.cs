@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace ThatOneGame.Structure
         public static float scale;
         public static Vector2 preferedResolution { get { return new Vector2(RESOLUTION_WIDTH, RESOLUTION_HEIGHT); } }
         public static Vector2 screenSize;
+        public static SpriteFont font;
     }
 }

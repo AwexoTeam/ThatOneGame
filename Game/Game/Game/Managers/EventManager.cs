@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ThatOneGame.Structure;
 
 namespace ThatOneGame.GameCode
 {
@@ -19,6 +16,8 @@ namespace ThatOneGame.GameCode
 
         public static void Invoke(EventManagerTypes type, object args)
         {
+            Debug.LogDebug("Invoking event " + type);
+
             switch (type)
             {
                 case EventManagerTypes.WindowSizeChanged:

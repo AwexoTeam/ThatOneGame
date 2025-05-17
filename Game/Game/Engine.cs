@@ -5,6 +5,8 @@ using ThatOneGame.Structure;
 using ThatOneGame.GameCode;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using SpriteFontPlus;
+using System.IO;
 
 namespace ThatOneGame
 {
@@ -65,6 +67,7 @@ namespace ThatOneGame
             isResizing = true;
             UpdateScaleMatrix();
             isResizing = false;
+            
             EventManager.Invoke(EventManagerTypes.WindowSizeChanged, e);
         }
 
@@ -73,6 +76,20 @@ namespace ThatOneGame
             batch = new SpriteBatch(GraphicsDevice);
             
             renderer = new RenderTarget2D(GraphicsDevice, (int)Globals.preferedResolution.X, (int)Globals.preferedResolution.Y);
+
+            string fontData;
+
+            using (var stream = TitleContainer.OpenStream("Fonts/test.fnt"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    fontData = reader.ReadToEnd();
+                }
+            }
+
+            Globals.font = BMFontLoader.Load(fontData, name => TitleContainer.OpenStream("Fonts/" + name), Engine.batch.GraphicsDevice);
+
+
             UpdateScaleMatrix();
 
         }
