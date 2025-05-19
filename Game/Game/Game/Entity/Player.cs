@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ThatOneGame.Structure;
 using ThatOneGame;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace ThatOneGame.GameCode
 {
@@ -23,7 +26,7 @@ namespace ThatOneGame.GameCode
         private Texture2D swordTexture;
 
         private ConsoleUI console;
-        public Dictionary<Stats, float> stats;
+        public Entity entity;
 
         public Player() : base ()
         {
@@ -37,24 +40,18 @@ namespace ThatOneGame.GameCode
             var swordPath = basePath + @"..\Base Tools PNG\Base Attack (One Hand Weapons)\Base Sword\Base Sword 01.png";
             swordTexture = Texture2D.FromFile(Engine.batch.GraphicsDevice, swordPath);
 
-            stats = new Dictionary<Stats, float>();
+            PlayerEntityInit();
+        }
 
-            var values = Enum.GetValues(typeof(Stats)).Cast<Stats>();
-            foreach (var stat in values)
-            {
-                if (stats.ContainsKey(stat))
-                    continue;
+        public void PlayerEntityInit()
+        {
 
-                stats.Add(stat, 1);
-            }
+            entity = new Entity();
+            entity.Initialize("Player");
 
-            stats[Stats.Max_Hp] = 100;
-            stats[Stats.Max_Mp] = 100;
-            stats[Stats.Max_Sp] = 100;
-
-            stats[Stats.Hp] = stats[Stats.Max_Hp];
-            stats[Stats.Mp] = stats[Stats.Max_Mp];
-            stats[Stats.Sp] = stats[Stats.Max_Sp];
+            string json = File.ReadAllText("Data/Player.json");
+            entity = JsonConvert.DeserializeObject<Entity>(json);
+            entity.AdjustStats();
         }
 
         public override void Start()
@@ -183,10 +180,20 @@ namespace ThatOneGame.GameCode
             console.UIDraw(batch);
         }
 
-        public void DoDamage(Enemy enemy)
+        public bool IsDead()
         {
-            var dmg = enemy.stats[Stats.Min_Damage];
-            stats[Stats.Hp] -= dmg;
+            if (godMode)
+                return false;
+
+            return entity.isDead();
+        }
+        
+        public void Heal(float val)
+        {
+            if (val < 0)
+                val = entity.GetStat(Stats.Max_Hp);
+
+            entity.ModifyStat(Stats.Hp, val);
         }
     }
 }

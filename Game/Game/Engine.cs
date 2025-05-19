@@ -49,6 +49,7 @@ namespace ThatOneGame
 
             base.Initialize();
             Array.ForEach(managers, x => x.Initialize());
+            Globals.random = new Random();
         }
 
         private void Window_ClientSizeChanged(object sender, System.EventArgs e)

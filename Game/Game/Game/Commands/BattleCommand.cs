@@ -10,6 +10,7 @@ namespace ThatOneGame.GameCode
     public class BattleCommand : Command
     {
         public override string command => "battle";
+        public override string[] aliases => new string[] { "b" };
 
         public override bool CanExecute(string[] args, out string output)
         {

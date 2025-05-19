@@ -35,13 +35,17 @@ namespace ThatOneGame.GameCode
             string cmdName = args[0];
             cmdName = cmdName.ToLower();
 
-            var cmd = Array.Find(commands, x => x.command == cmdName);
-            if (cmd == null)
+            var purecmd = Array.Find(commands, x => x.command == cmdName);
+            var aliasCommand = Array.Find(commands, x => x.aliases != null &&   x.aliases.Contains(cmdName));
+
+            if (purecmd == null && aliasCommand == null)
             {
                 output = cmdName + " does not exist.";
                 Debug.LogWarning(cmdName + " does not exist.");
                 return false;
             }
+
+            Command cmd = purecmd == null ? aliasCommand : purecmd;
 
             args = args.Skip(1).ToArray();
             if (!cmd.CanExecute(args, out output))

@@ -19,11 +19,14 @@ namespace ThatOneGame.GameCode
         public static BattleManager instance;
         
         private Enemy[] enemies;
+        private List<EnemyUI> enemiesUIs;
         private bool isPlayerTurn;
         private bool isActive;
 
         private HorizontalLayout enemyContainer;
         private UIButton attackButton;
+
+        public int selectedIndex;
 
         public override void Initialize()
         {
@@ -32,9 +35,12 @@ namespace ThatOneGame.GameCode
 
             instance = this;
 
-            string path = "Templates/EnemyTemplate.json";
+            string path = "Templates/{0}.json";
             
-            File.WriteAllText(path, Enemy.GetDefaultJson());
+            File.WriteAllText(string.Format(path, "EnemyTemplate"), Enemy.GetDefaultJson());
+            File.WriteAllText(string.Format(path, "EntityTemplate"), Entity.GetDefaultJson());
+
+            
         }
 
         public bool IsValidBattle(string battleFileName, out string error)
@@ -84,6 +90,7 @@ namespace ThatOneGame.GameCode
         }
         private void InitiateBattle(string file, int amount)
         {
+            enemiesUIs = new List<EnemyUI>();
             var jsonStr = File.ReadAllText(file);
             
             Player.player.blockInput = true;
@@ -92,7 +99,7 @@ namespace ThatOneGame.GameCode
 
             enemyContainer = new HorizontalLayout(Point.Zero, new Point((int)Globals.screenSize.X, 300), Color.White, UIAnchor.Middle, UIStretch.Width);
             enemyContainer.padding = 5;
-            enemyContainer.Adjust();
+            
 
             enemies = new Enemy[amount];
 
@@ -100,20 +107,27 @@ namespace ThatOneGame.GameCode
             for (int i = 0; i < amount; i++)
             {
                 var enemy = JsonConvert.DeserializeObject<Enemy>(jsonStr);
-                enemy.AdjustStats();
-
+                enemy.entity.AdjustStats();
                 enemies[i] = enemy;
 
                 var enemyUI = new EnemyUI(enemy, Point.Zero, new Point(100, 100), Color.Cyan);
                 enemyUI.barSize = 10;
                 el.Add(enemyUI);
                 enemyUI.Adjust();
+                enemyUI.id = i;
+                enemyUI.onClick = () => { BattleManager.instance.selectedIndex = enemyUI.id; };
+
+                enemiesUIs.Add(enemyUI);
             }
 
             enemyContainer.AddRange(el.ToArray());
             attackButton = new UIButton(new Point(0, 0), new Point(300, 80), Color.White, UIAnchor.BottomMiddle);
-            attackButton.Adjust();
             attackButton.onClick = OnAttackClick;
+            attackButton.Adjust();
+            enemyContainer.Adjust();
+
+            //TODO: THIS SHOULDNT BE NESSACRY
+            EventManager.Invoke(EventManagerTypes.WindowSizeChanged, null);
         }
 
         
@@ -122,25 +136,44 @@ namespace ThatOneGame.GameCode
             if (!isActive)
                 return;
 
-            if (isActive && !Array.Exists(enemies, x => !x.isDeadh()))
+            if (isActive && !Array.Exists(enemies, x => !x.entity.isDead()))
             {
-                Debug.LogDebug("Enemy is dead!");
                 isActive = false;
                 Player.player.blockInput = false;
                 isPlayerTurn = false;
                 return;
             }
 
+            if (enemies[selectedIndex] == null || enemies[selectedIndex].entity.isDead())
+                selectedIndex = Array.FindIndex(enemies, e => e != null && e.entity.isDead());
+
             attackButton.color = isPlayerTurn ? Color.White : Color.Gray;
 
             if (!isPlayerTurn)
             {
-                Array.ForEach(enemies, x => x.TickAI());
-                isPlayerTurn = true;
+                foreach (var enemy in enemies)
+                {
+                    enemy.TickAI();
+                    isPlayerTurn = true;
+                    if (Player.player.IsDead())
+                    {
+                        isActive = false;
+                        Player.player.blockInput = false;
+                        isPlayerTurn = false;
+
+                        //TODO: REMOVE HEALING???
+                        Player.player.Heal(-1);
+
+                        Debug.LogVerbose("Defeated by " + enemy.entity.name + " Should play " + enemy.defeatScene + " scene.");
+                        break;
+                    }
+                }
+                
                 return;
             }
 
             attackButton.CheckAndExecute();
+            enemiesUIs.ForEach(x => x.CheckAndExecute());
         }
 
         public override void DrawUI(SpriteBatch batch)
@@ -161,9 +194,9 @@ namespace ThatOneGame.GameCode
             playerHpLocation.Y -= playerHpSize.Y;
             playerHpLocation.Y -= 5;
 
-            float max = Player.player.stats[Stats.Max_Hp];
-            float curr = Player.player.stats[Stats.Hp];
-
+            float max = Player.player.entity.GetStat(Stats.Max_Hp);
+            float curr = Player.player.entity.GetStat(Stats.Hp);
+            
             float percent = 1-(curr / max);
             float num = playerHpSize.X * (1 - percent);
 
@@ -178,7 +211,8 @@ namespace ThatOneGame.GameCode
             if (!isPlayerTurn)
                 return;
 
-            enemies[0].DamageByPlayer();
+            enemies[selectedIndex].DamageByPlayer();
+            Player.player.entity.RegenTick();
             isPlayerTurn = false;
         }
     }

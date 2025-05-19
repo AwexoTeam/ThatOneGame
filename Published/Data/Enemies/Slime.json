@@ -1,0 +1,30 @@
+{
+  "defeatScene": "Scenes/slime",
+  "texturePath": "../Tiles/Enemy/Slimes/Baby Slime 01.png",
+  "entity": {
+    "name": "Slime",
+    "stats": {
+      "Max_Hp": 100,
+      
+	  "Health_Regen": 0,
+	  "Mana_Regen": 0,
+      "Special_Regen": 0,
+	  
+      "Armor_Pierce": 0,
+      "Min_Damage": 5,
+      "Max_Damage": 10,
+
+      "Min_Injury": 1,
+      "Max_Injury": 1,
+
+      "Critical_Chance": 1,
+      "Critical_Damage": 1,
+
+      "Defence": 0,
+    }
+  },
+  "skills": {
+    "Normal Attack": 100,
+    "Defence": 5
+  }
+}

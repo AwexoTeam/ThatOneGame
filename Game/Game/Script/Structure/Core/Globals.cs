@@ -19,5 +19,6 @@ namespace ThatOneGame.Structure
         public static Vector2 preferedResolution { get { return new Vector2(RESOLUTION_WIDTH, RESOLUTION_HEIGHT); } }
         public static Vector2 screenSize;
         public static SpriteFont font;
+        public static Random random;
     }
 }

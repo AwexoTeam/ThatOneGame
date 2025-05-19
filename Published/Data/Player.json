@@ -1,0 +1,39 @@
+{
+  "name": "Player",
+  
+  "stats": {
+    "Max_Hp": 100.0,
+    "Max_Mp": 100.0,
+    "Max_Sp": 100.0,
+    
+	"Health_Regen": 1,
+    "Mana_Regen": 1,
+    "Special_Regen": 1,
+    
+	"HP_Leech": 1,
+    "MP_Leech": 1,
+    "SP_Leech": 1,
+	
+	"Stregnth": 0,
+    "Intelligence": 0,
+    "Dexterity": 0,
+    "Will": 0,
+    "Luck": 0,
+    
+	"Min_Damage": 10.0,
+    "Max_Damage": 20.0,
+    "Balance": 50,
+	
+	"Min_Injury": 1,
+    "Max_Injury": 5,
+    
+	"Critical_Chance": 5,
+    "Critical_Damage": 100,
+    
+	"Magic_Damage": 0,
+    
+	"Defence": 1,
+    "Damage_Reduction": 1.0,
+	"Armor_Pierce": 1,
+  }
+}

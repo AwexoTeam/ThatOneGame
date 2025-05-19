@@ -16,19 +16,19 @@ namespace ThatOneGame.Structure
         Mp,
         Sp,
 
-        Wound,
+        Wound = 10,
 
-        Health_Regen,
+        Health_Regen = 100,
         Mana_Regen,
         Special_Regen,
 
-        Stregnth,
+        Stregnth = 200,
         Intelligence,
         Dexterity,
         Will,
         Luck,
 
-        Armor_Pierce,
+        Armor_Pierce = 300,
 
         Min_Damage,
         Max_Damage,
@@ -42,8 +42,12 @@ namespace ThatOneGame.Structure
         Critical_Damage,
         Balance,
 
+        HP_Leech,
+        MP_Leech,
+        SP_Leech,
+
         Defence,
-        Protection,
+        Damage_Reduction,
 
     }
 }

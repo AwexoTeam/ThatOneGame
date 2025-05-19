@@ -14,7 +14,7 @@ namespace ThatOneGame.Script.UI
         {
         }
 
-        public bool isClicked()
+        public virtual bool isClicked()
         {
             if (!rect.IntersectsWithMouse())
                 return false;
