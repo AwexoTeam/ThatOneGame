@@ -113,10 +113,10 @@ namespace ThatOneGame.GameCode
                 var enemyUI = new EnemyUI(enemy, Point.Zero, new Point(100, 100), Color.Cyan);
                 enemyUI.barSize = 10;
                 el.Add(enemyUI);
-                enemyUI.Adjust();
+                
                 enemyUI.id = i;
                 enemyUI.onClick = () => { BattleManager.instance.selectedIndex = enemyUI.id; };
-
+                enemyUI.Adjust();
                 enemiesUIs.Add(enemyUI);
             }
 
@@ -125,12 +125,11 @@ namespace ThatOneGame.GameCode
             attackButton.onClick = OnAttackClick;
             attackButton.Adjust();
             enemyContainer.Adjust();
-
+            
             //TODO: THIS SHOULDNT BE NESSACRY
             EventManager.Invoke(EventManagerTypes.WindowSizeChanged, null);
         }
-
-        
+   
         public override void Update(GameTime gameTime)
         {
             if (!isActive)

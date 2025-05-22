@@ -12,6 +12,7 @@ namespace ThatOneGame.Script.UI
         public UIButton(Point _position, Point _size, Color _color, UIAnchor _anchor = UIAnchor.TopLeft, UIStretch _stretch = UIStretch.None):
         base(_position, _size, _color, _anchor, _stretch)
         {
+
         }
 
         public virtual bool isClicked()
