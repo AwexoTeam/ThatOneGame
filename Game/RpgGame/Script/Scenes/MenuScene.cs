@@ -1,9 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Gum.Wireframe;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
+using MonoGameGum;
+using MonoGameGum.Forms.Controls;
+using RpgGame.Managers;
+using RpgGame.Script.Manager;
 using RpgGame.Structure;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +17,19 @@ namespace RpgGame.Scenes
 {
     public class MenuScene : Scene
     {
+        GraphicsDevice graphics => Engine.graphics.GraphicsDevice;
+        
         public override void Start()
         {
-            
-        }
+            var playButton = new Button();
+            playButton.Text = "Play";
+            playButton.Visual.Width = 300;
 
-        public override void UIDraw(SpriteBatch batch)
-        {
-            batch.FillRectangle(new RectangleF(0, 0, 100, 100), Color.White);
+            int startScene = SceneManager.instance.GetScreenId<StartScene>();
+            playButton.Click += (s,e) => { SceneManager.instance.LoadScreen(startScene); }; ;
+            playButton.Anchor(Anchor.Center);
+
+            GUI.AddElement(playButton);
         }
     }
 }

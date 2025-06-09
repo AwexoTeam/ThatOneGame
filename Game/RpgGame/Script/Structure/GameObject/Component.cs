@@ -9,6 +9,8 @@ namespace RpgGame.Structure
 {
     public class Component
     {
+        public GameObject gameObject;
+        public virtual void Awake() { }
         public virtual void Start() { }
         public virtual void Update(GameTime gametime) { }
         public virtual void Unload() { }

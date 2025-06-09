@@ -5,10 +5,10 @@
     },
     "activeFile": "Collision test map.tmx",
     "expandedProjectPaths": [
-        "Map",
+        "Map/Test Map",
         ".",
         "Tilesets",
-        "Map/Test Map"
+        "Map"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -39,11 +39,11 @@
             "scaleInDock": 1
         },
         "Collision test map.tmx": {
-            "scale": 1.2033333333333331,
-            "selectedLayer": 2,
+            "scale": 1.5,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 654.432132963989,
-                "y": 332.40997229916906
+                "x": 675.6666666666667,
+                "y": 236
             }
         },
         "D:/HentaiGame/Maps/FirstMap.tmj": {
@@ -268,13 +268,14 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "Collision test map.tmx"
+        "Collision test map.tmx",
+        "Tilesets/Village Terrain.tsx"
     ],
     "project": "HentaiGame.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "Collision test map.tmx",
         "Tilesets/Village Terrain.tsx",
+        "Collision test map.tmx",
         "Tilesets/Village Nature.tsx",
         "C:/Users/Brioche/Documents/GitHub/HentaiGame/Published/Data/Collision test map.tmx",
         "Tilesets/Rural Village Objects.tsx",

@@ -24,7 +24,7 @@ namespace ThatOneGame.Structure
             
         }
 
-        public void InitializeMap()
+        internal void InitializeMap()
         {
             try
             {
@@ -66,7 +66,7 @@ namespace ThatOneGame.Structure
             tiles.OrderBy(x => x.order);
         }
 
-        private void IterateMap(int iterator, TmxLayer layer)
+        internal void IterateMap(int iterator, TmxLayer layer)
         {
             int order = map.Layers.ToList().FindIndex(x => x == layer);
             order--;

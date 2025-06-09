@@ -24,7 +24,6 @@ namespace RpgGame.Structure
 
         public static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
 
-
         public Tile(TmxTileset tileset, Rectangle sourceRect, Rectangle destination, string imagePath, bool isEmpty)
         {
             this.sourceRect = sourceRect;
@@ -38,12 +37,12 @@ namespace RpgGame.Structure
         {
             if (!textures.ContainsKey(imagePath))
             {
+                Debug.LogDebug("Fetching Texture: " + imagePath);
                 var texture = Texture2D.FromFile(batch.GraphicsDevice, imagePath);
                 textures.Add(imagePath, texture);
             }
 
             var tileset = textures[imagePath];
-
             batch.Draw(tileset, destination, sourceRect, Color.White);
         }
 

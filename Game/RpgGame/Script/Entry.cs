@@ -7,6 +7,12 @@ internal class Entry()
 {
     internal static void Main(string[] args)
     {
+        Debug.LogDebug("Debug log message! - These are to be deleted");
+        Debug.LogVerbose("Verbose log message! - Dev info user dont care about");
+        Debug.LogInfo("Info log message! - Info to the user");
+        Debug.LogWarning("Warning log message! - For warnings");
+        Debug.LogError("Error log message! - For errors... :)");
+
         EventManager.Invoke(EventManagerTypes.PreHook, null);
         StartAllHooks();
         new Engine().Run();

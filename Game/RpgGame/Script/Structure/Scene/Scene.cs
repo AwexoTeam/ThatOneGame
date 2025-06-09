@@ -19,10 +19,20 @@ namespace RpgGame.Structure
             gameObjects.ForEach(x => x.Unload());
         }
 
-        public virtual void Start()
+        public virtual void Awake()
         {
             InvalidateLists();
 
+            foreach (var gobj in gameObjects)
+            {
+                gobj.Awake();
+            }
+        }
+
+        public virtual void Start()
+        {
+            InvalidateLists();
+            
             foreach (var gobj in gameObjects)
             {
                 gobj.Start();
@@ -39,18 +49,25 @@ namespace RpgGame.Structure
 
         public virtual void Draw(SpriteBatch batch)
         {
+            if (gameObjects == null || gameObjects.Count <= 0)
+                return;
 
+            gameObjects.ForEach(x => x.Draw(batch));
         }
 
-        public virtual void UIDraw(SpriteBatch batch)
+        public virtual void PostDraw(SpriteBatch batch)
         {
+            if (gameObjects == null || gameObjects.Count <= 0)
+                return;
 
+            gameObjects.ForEach(x => x.PostDraw(batch));
         }
 
         public virtual void AddGameObject(GameObject gameObject)
         {
             gameObjects.Add(gameObject);
             InvalidateLists();
+
         }
 
         public virtual void InvalidateLists()
@@ -59,5 +76,7 @@ namespace RpgGame.Structure
         }
 
         public List<GameObject> GetGameObjects() => gameObjects;
+
+        public void Instantiate(GameObject gameObject) => GameObject.Instantiate(gameObject);
     }
 }

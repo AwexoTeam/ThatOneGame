@@ -11,6 +11,5 @@ namespace RpgGame.Structure
     {
         void Draw(SpriteBatch batch);
         void PostDraw(SpriteBatch batch);
-        void DrawUI(SpriteBatch batch);
     }
 }

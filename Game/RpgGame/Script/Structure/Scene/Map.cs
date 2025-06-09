@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
-using RpgGame.Entity;
+using MonoGame;
+using RpgGame.Managers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,25 +10,26 @@ using TiledSharp;
 
 namespace RpgGame.Structure
 {
-    public class Map : IRenderable
+    public class Map : Component, IRenderable
     {
         public int playerLayer;
         public string name;
         public string mapPath;
-        public TmxMap map;
+        
+        public int playerLayerId;
         public List<Tile> tiles;
 
         public Map(string name, string mapPath)
         {
-            tiles = new List<Tile>();
-
             this.mapPath = mapPath;
             this.name = name;
-
         }
 
-        public void Start()
+        public override void Start()
         {
+            TmxMap map = null;
+            tiles = new List<Tile>();
+
             try
             {
                 map = new TmxMap(mapPath);
@@ -52,104 +53,99 @@ namespace RpgGame.Structure
             if (map == null)
                 return;
 
-            //Time to fill our tiles collection.
-            foreach (var layer in map.Layers)
+            for (int i = 0; i < map.Layers.Count; i++)
             {
-                for (int i = 0; i < layer.Tiles.Count; i++)
-                {
-                    IterateMap(i, layer);
-                    if (layer.Properties.Count <= 0)
-                        continue;
+                var layer = map.Layers[i];
+                if (layer == null) continue;
 
-                    if (layer.Properties.ContainsKey("Player"))
-                        playerLayer = map.Layers.ToList().FindIndex(x => x == layer);
+                if(layer.Properties.Count > 0)
+                {
+                    var index = layer.Properties.ToList().FindIndex(x => x.Key == "Player");
+                    playerLayerId = i;
+                    Debug.LogDebug("Player Layer at: " + playerLayerId);
+                }
+
+                if (layer.Tiles.Count <= 0) continue;
+                for (int j = 0; j < layer.Tiles.Count; j++)
+                {
+                    var _tile = layer.Tiles[j];
+                    if(_tile.Gid == 0)
+                    {
+                        //TODO: Handle empty tiles if needed.
+                        continue;
+                    }
+
+                    TmxTileset _tileset = null;
+                    if(!TryGetTileset(map,_tile, ref _tileset))
+                    {
+                        Debug.LogError("Couldnt find a tileset encompasing " + _tile.Gid);
+                        continue;
+                    }
+
+                    string imagePath = _tileset.Image.Source;
+                    bool isEmpty = false;
+                    
+                    int tileWidth = _tileset.TileWidth;
+                    int tileHeight = _tileset.TileHeight;
+
+
+                    Rectangle source = new Rectangle(0, 0, tileWidth, tileHeight);
+
+                    int x = _tile.Gid - _tileset.FirstGid;
+                    if(x >= _tileset.Columns)
+                    {
+                        int y = (int)(x / _tileset.Columns);
+                        source.Y = y * tileHeight;
+
+                        x -= (int)(y * _tileset.Columns);
+                    }
+
+                    source.X = x * tileWidth;
+
+                    Rectangle destination = new Rectangle(0,0, tileWidth, tileHeight);
+                    destination.X = _tile.X * tileWidth;
+                    destination.Y = _tile.Y * tileHeight;
+
+
+                    int id = _tile.Gid;
+                    id -= _tileset.FirstGid;
+
+                    Tile t = new Tile(_tileset, source, destination, imagePath, isEmpty);
+
+                    if (_tileset.Tiles.ContainsKey(id))
+                    {
+                        TmxTilesetTile tt = _tileset.Tiles[id];
+                        t.tile = tt;
+                    }
+
+                    t.order = i;
+
+                    tiles.Add(t);
                 }
             }
 
             tiles.OrderBy(x => x.order);
         }
 
-        private void IterateMap(int iterator, TmxLayer layer)
+        public bool TryGetTileset(TmxMap map, TmxLayerTile tile, ref TmxTileset tileset)
         {
-            int order = map.Layers.ToList().FindIndex(x => x == layer);
-            order--;
-
-            int tileId = layer.Tiles[iterator].Gid;
-
-            int originalId = tileId;
-
-            if (tileId == 0)
-                return;
-
-            TmxLayerTile tile = layer.Tiles[iterator];
-            TmxTileset tileset = null;
+            bool rtn = false;
 
             foreach (var ts in map.Tilesets)
             {
-                if (tileId < ts.FirstGid)
-                    continue;
+                int fgid = ts.FirstGid;
 
-                if (tileId > ts.FirstGid + ts.TileCount)
-                    continue;
+                if (tile.Gid < fgid) continue;
+
+                int totalgid = fgid + (int)ts.TileCount;
+                if (tile.Gid > totalgid) continue;
 
                 tileset = ts;
+                rtn = true;
+                break;
             }
 
-            if (tileset == null)
-                return;
-
-            int tilesetId = tileId - tileset.FirstGid;
-            TmxTilesetTile tilesetTile = null;
-            if (tileset.Tiles.ContainsKey(tilesetId))
-                tilesetTile = tileset.Tiles[tilesetId];
-
-            //Since we are 0 indexed we gotta remove the first id of the tileset.
-
-            int x = tileId - tileset.FirstGid;
-
-            //Initialize our rects for drawing
-            Rectangle destination = new Rectangle(0, 0, 16, 16);
-            Rectangle sourceRect = new Rectangle(0, 0, 16, 16);
-
-            //To find the x and y this is the math
-            if (tileId > tileset.Columns)
-            {
-                int y = (int)(x / tileset.Columns);
-                sourceRect.Y = y;
-
-                x -= (int)(y * tileset.Columns);
-            }
-
-            //Set the values
-            sourceRect.X = x;
-
-            //What we calculated was tile coordinates.
-            //So to find the pixel coordinates we multi by the tile width and height
-            sourceRect.X *= tileset.TileWidth;
-            sourceRect.Y *= tileset.TileHeight;
-
-            //Same math as before really just based on i instead of tile ID
-            int desX = iterator;
-            if (desX > map.Width - 1)
-            {
-                int y = desX / map.Width;
-                destination.Y = y;
-
-                desX -= y * map.Width;
-            }
-
-            destination.X = desX;
-            destination.X *= tileset.TileWidth;
-            destination.Y *= tileset.TileHeight;
-
-            //Make the tile instance
-            Tile _tile = new Tile(tileset, sourceRect, destination, tileset.Image.Source, false);
-            _tile.layer = layer;
-            _tile.id = originalId;
-            _tile.tile = tilesetTile;
-            _tile.order = order;
-
-            tiles.Add(_tile);
+            return rtn;
         }
 
         public static string GetFirstMap(string basePath)
@@ -173,45 +169,33 @@ namespace RpgGame.Structure
 
         public void Draw(SpriteBatch batch)
         {
-            bool playerHasBeenDrawn = false;
-            foreach (var tile in tiles)
+            for (int i = 0; i < tiles.Count; i++)
             {
-                tile.Draw(batch);
-                if (playerLayer == tile.order && !playerHasBeenDrawn)
-                {
-                    playerHasBeenDrawn = true;
-                    Player.instance.Draw(batch);
-                }
+                tiles[i].Draw(batch);
             }
-
-            if (!playerHasBeenDrawn)
-                Player.instance.Draw(batch);
 
             DrawDebug(batch);
         }
-
 
         public void DrawDebug(SpriteBatch batch)
         {
             if (!Globals.DebugMode)
                 return;
 
-            foreach (var tile in tiles)
+            for (int i = 0; i < tiles.Count; i++)
             {
-                var rects = Tile.GetCollisionRects(tile);
-                if (rects == null)
+                var t = tiles[i];
+                var cols = Tile.GetCollisionRects(t);
+                if (cols == null || cols.Count <= 0)
                     continue;
 
-                if (rects.Count <= 0)
-                    continue;
-
-                foreach (var col in rects)
+                for (int j = 0; j < cols.Count; j++)
                 {
-                    batch.DrawRectangle(col, Color.Lime);
+                    var col = cols[j];
+                    batch.DrawRectangle(col, Color.Green);
                 }
             }
         }
-
 
         public void PostDraw(SpriteBatch batch){ return; }
         public void DrawUI(SpriteBatch batch) { return; }

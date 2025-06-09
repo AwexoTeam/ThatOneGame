@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Gum.Wireframe;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameGum;
 using RpgGame.Managers;
 using RpgGame.Structure;
 using System;
@@ -14,10 +16,11 @@ namespace RpgGame.Managers
 
         public static List<Action<SpriteBatch>> mainDrawCalls;
         public static List<Action<SpriteBatch>> postDrawCalls;
-        public static List<Action<SpriteBatch>> uiDrawCalls;
 
-        private GraphicsDeviceManager graphicsDeviceManager;
-        private GraphicsDevice graphics;
+        public static GraphicsDeviceManager graphicsDeviceManager;
+        public static GraphicsDevice graphics;
+        public static GameWindow window;
+
         private RenderTarget2D renderer;
         public static Rectangle renderRect;
         public static Matrix transform;
@@ -33,8 +36,7 @@ namespace RpgGame.Managers
         {
             mainDrawCalls = new List<Action<SpriteBatch>>();
             postDrawCalls = new List<Action<SpriteBatch>>();
-            uiDrawCalls = new List<Action<SpriteBatch>>();
-
+            
             EventManager.OnEngineInitizile += OnEngineStart;
             EventManager.OnEngineContentLoad += ContentLoad;
         }
@@ -64,12 +66,14 @@ namespace RpgGame.Managers
 
             w.AllowUserResizing = true;
             w.ClientSizeChanged += OnWindowChanged;
+
+            window = w;
         }
 
         private void OnWindowChanged(object sender, EventArgs e)
         {
             UpdateScaleMatrix();
-            EventManager.Invoke(EventManagerTypes.WindowSizeChanged, e);
+
         }
 
         private void UpdateScaleMatrix()
@@ -101,18 +105,18 @@ namespace RpgGame.Managers
             mainDrawCalls.ForEach(x => x.Invoke(batch));
             batch.End();
 
-            batch.Begin(samplerState: samplerState);
-            mainDrawCalls.ForEach(x => x.Invoke(batch));
-            batch.End();
-
             graphics.SetRenderTarget(null);
             graphics.Clear(Color.Black);
 
             batch.Begin(samplerState: samplerState);
-            batch.Draw(renderer, renderRect, Color.White);
-            uiDrawCalls.ForEach(x => x.Invoke(batch));
+            postDrawCalls.ForEach(x => x.Invoke(batch));
             batch.End();
 
+            batch.Begin(samplerState: samplerState);
+            batch.Draw(renderer, renderRect, Color.White);
+            batch.End();
+
+            GumService.Default.Draw();
         }
     }
 }

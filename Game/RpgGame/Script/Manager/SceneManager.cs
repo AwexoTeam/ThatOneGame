@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameGum;
 using RpgGame.Scenes;
 using RpgGame.Structure;
 using System;
@@ -29,14 +30,15 @@ namespace RpgGame.Managers
 
             instance = this;
             scenes = Utils.GetAllTypes<Scene>();
-            EventManager.OnEngineInitizile += OnInitialize;
+            EventManager.OnEngineInitizile += OnInitialize;   
         }
 
         private void OnInitialize()
         {
             RenderManager.mainDrawCalls.Add(Draw);
             RenderManager.postDrawCalls.Add(PostDraw);
-            RenderManager.uiDrawCalls.Add(DrawUI);
+
+            Engine.updateCalls.Add(Update);
             LoadMainMenu();
         }
 
@@ -48,11 +50,11 @@ namespace RpgGame.Managers
         
         public void Update(GameTime gameTime)
         {
-
-            Globals.window.Title = scene.GetType().Name;
             if (!hasInitScene)
                 return;
 
+
+            RenderManager.window.Title = scene.GetType().Name;
             scene.Update(gameTime);
         }
 
@@ -72,12 +74,7 @@ namespace RpgGame.Managers
 
         public void PostDraw(SpriteBatch batch)
         {
-        
-        }
-
-        public void DrawUI(SpriteBatch batch)
-        {
-            scene.UIDraw(batch);
+            scene.PostDraw(batch);
         }
 
         public void LoadScreen(Scene _scene)
@@ -89,6 +86,7 @@ namespace RpgGame.Managers
             if (_scene != null)
             {
                 _scene.UnloadContent();
+                GumService.Default.Root.Children.Clear();
                 oldId = Array.FindIndex(scenes, x => x.GetType() == _scene.GetType());
                 EventManager.Invoke(EventManagerTypes.SceneUnloaded, oldId);
             }
@@ -98,11 +96,11 @@ namespace RpgGame.Managers
             scene = _scene;
 
             EventManager.Invoke(EventManagerTypes.SceneLoaded, id);
+            _scene.Awake();
             _scene.Start();
 
             EventManager.Invoke(EventManagerTypes.SceneChanged, id, oldId);
             hasInitScene = true;
-
         }
 
     }
