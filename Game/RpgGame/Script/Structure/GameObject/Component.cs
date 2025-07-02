@@ -9,6 +9,7 @@ namespace RpgGame.Structure
 {
     public class Component
     {
+        public Vector2 position { get { return gameObject.position; } set {  gameObject.position = value; } }
         public GameObject gameObject;
         public virtual void Awake() { }
         public virtual void Start() { }

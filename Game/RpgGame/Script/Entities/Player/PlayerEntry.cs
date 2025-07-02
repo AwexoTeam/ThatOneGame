@@ -160,24 +160,39 @@ namespace RpgGame.Structure
 
         private bool Collision()
         {
-            Vector2 collisionDir = Vector2.Zero;
-
-            tileTarget.X = (int)gameObject.position.X;
-            tileTarget.Y = (int)gameObject.position.Y;
-
-            tileTarget.Width = 16;
-            tileTarget.Height = 16;
-
-            Tile lowestTile = new Tile(null, new Rectangle(), new Rectangle(), "", true);
             
-            lowestTile = map.tiles.Find(x => x.destination.Intersects(tileTarget));
+            var tilesCollision = map.tiles.Where(x => Tile.GetCollisionRects(x) != null);
+            var collisions = tilesCollision.SelectMany(x => Tile.GetCollisionRects(x));
 
-            Vector2 tileTargetPos = new Vector2(tileTarget.X, tileTarget.Y);
+            Point location = new Point((int)position.X, (int)position.Y);
+            Point size = new Point(16, 16);
 
-            tileTarget.X = lowestTile.destination.X;
-            tileTarget.Y = lowestTile.destination.Y;
+            int num = 1;
 
-            return collisionBox.IsCollidingWith(lowestTile, out collisionDir);
+            location.X += (int)(direction.X * num);
+            location.Y += (int)(direction.Y * num);
+            tileTarget = new Rectangle(location, size);
+
+            if(direction.X == 0 || direction.Y == 0)
+                return collisions.Any(x => x.Intersects(tileTarget));
+
+            Rectangle xCollision = new Rectangle(tileTarget.X, (int)position.Y, 16, 16);
+            Rectangle yCollision = new Rectangle((int)position.X, tileTarget.Y, 16, 16);
+
+            bool xColliding = collisions.Any(x => x.Intersects(xCollision));
+            bool yColliding = collisions.Any(x => x.Intersects(yCollision));
+
+            if (xColliding && yColliding)
+                return true;
+
+            if (xColliding)
+            {
+                direction = new Vector2(0, direction.Y);
+                return false;
+            }
+
+            direction = new Vector2(direction.X, 0);
+            return false;
         }
 
         private bool DoErrorChecking()

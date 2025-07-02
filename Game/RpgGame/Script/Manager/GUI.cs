@@ -69,7 +69,7 @@ namespace RpgGame.Script.Manager
             nineSlice.TextureWidth = 48;
             nineSlice.TextureHeight = 48;
             nineSlice.TextureAddress = Gum.Managers.TextureAddress.Custom;
-            nineSlice.TextureLeft = windowType * nineSlice.TextureLeft;
+            nineSlice.TextureLeft = windowType * nineSlice.TextureWidth;
 
             nineSlice.X = x;
             nineSlice.Y = y;
