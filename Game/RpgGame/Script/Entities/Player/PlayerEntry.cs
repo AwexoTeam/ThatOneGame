@@ -1,8 +1,11 @@
-﻿using Gum.Wireframe;
+﻿using Gum.Converters;
+using Gum.DataTypes;
+using Gum.Wireframe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame;
+using MonoGameGum;
 using MonoGameGum.Forms.Controls;
 using Newtonsoft.Json;
 using RpgGame.Components;
@@ -110,13 +113,13 @@ namespace RpgGame.Structure
             }
 
             console = new TextBox();
-            console.Width = 300;
+            console.Visual.WidthUnits = DimensionUnitType.PercentageOfParent;
+            console.Visual.XUnits = GeneralUnitType.Percentage;
+            console.X = 20;
+            console.Width = 50;
             console.Height = 40;
-            console.IsEnabled = false;
-            console.IsVisible = false;
-
+            
             console.Anchor(Anchor.Bottom);
-            GUI.AddElement(console);
         }
 
 
@@ -185,13 +188,10 @@ namespace RpgGame.Structure
             if (xColliding && yColliding)
                 return true;
 
-            if (xColliding)
-            {
-                direction = new Vector2(0, direction.Y);
-                return false;
-            }
+            int x = xColliding ? 0 : (int)direction.X;
+            int y = yColliding ? 0 : (int)direction.Y;
 
-            direction = new Vector2(direction.X, 0);
+            direction = new Vector2(x, y);
             return false;
         }
 
@@ -207,19 +207,28 @@ namespace RpgGame.Structure
             return false;
         }
 
+        private bool isConsoleUp = false;
         public bool DoConsoleUpdate()
         {
 
             if (Input.IsKeyUp(Keys.Q))
             {
-                console.IsVisible = !console.IsVisible;
-                console.IsEnabled = !console.IsEnabled;
-                console.IsFocused = !console.IsFocused;
+                if (isConsoleUp)
+                {
+                    console.RemoveFromRoot();
+                    isConsoleUp = false;
+                }
+                else
+                {
+                    console.AddToRoot();
+                    isConsoleUp = true;
+                }
+
+
             }
 
             if (console.IsVisible)
             {
-                console.Width = RenderManager.window.ClientBounds.Width;
                 if (Input.IsKeyUp(Keys.Enter))
                 {
                     string err = "Successful";

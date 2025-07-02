@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
+//If you haven't seen this yet, check this out: https://docs.flatredball.com/gum/gum-tool/gum-elements/container/children-layout#auto-grid-horizontal-and-auto-grid-vertical
+
 namespace RpgGame.Structure
 {
     public class EquipmentSprite
@@ -57,7 +59,6 @@ namespace RpgGame.Structure
             window.IsVisible = false;
 
             backgroundWindow = GUI.GetWindow(0, 0, 0, (int)window.Width, (int)window.Height);
-
             int height = (int)(backgroundWindow.Height);
             height -= doubleOffset + offset; 
             height -= buttonHeight;

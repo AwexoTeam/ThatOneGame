@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThatOneGame", "ThatOneGame.csproj", "{72226D57-6355-4C81-9C4E-C3BC4EAD9A6B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RpgGame", "..\RpgGame\RpgGame.csproj", "{DEE15FDE-A11A-4437-B0D0-6F2BCA253036}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{72226D57-6355-4C81-9C4E-C3BC4EAD9A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72226D57-6355-4C81-9C4E-C3BC4EAD9A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72226D57-6355-4C81-9C4E-C3BC4EAD9A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72226D57-6355-4C81-9C4E-C3BC4EAD9A6B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DEE15FDE-A11A-4437-B0D0-6F2BCA253036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DEE15FDE-A11A-4437-B0D0-6F2BCA253036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEE15FDE-A11A-4437-B0D0-6F2BCA253036}.Release|Any CPU.ActiveCfg = Release|Any CPU

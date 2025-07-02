@@ -37,7 +37,6 @@ namespace RpgGame.Structure
         {
             if (!textures.ContainsKey(imagePath))
             {
-                Debug.LogDebug("Fetching Texture: " + imagePath);
                 var texture = Texture2D.FromFile(batch.GraphicsDevice, imagePath);
                 textures.Add(imagePath, texture);
             }

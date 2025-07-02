@@ -1,0 +1,111 @@
+{
+  "UserEvents": {
+    "939240bbd5def5c321d0e6cc7bd05c29a947b725c3aa7d01729b95368d32961e": [
+      {
+        "NewName": "MainUI",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 0,
+        "TimestampUtc": "2025-07-02T16:21:28.0161884Z"
+      },
+      {
+        "NewName": "MainUI.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:24:15.3069039Z"
+      },
+      {
+        "NewName": "MainUI.leftPanel",
+        "OldName": "MainUI.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:25:30.0123816Z"
+      },
+      {
+        "NewName": "MainUI.NineSliceInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:25:39.3919345Z"
+      },
+      {
+        "NewName": "MainUI.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:26:36.1237014Z"
+      },
+      {
+        "NewName": "MainUI.NineSliceInstance1",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:27:44.5079055Z"
+      },
+      {
+        "NewName": "MainUI.rightPanel",
+        "OldName": "MainUI.ContainerInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:27:50.4133067Z"
+      },
+      {
+        "NewName": "MainUI.rightNineSlice",
+        "OldName": "MainUI.NineSliceInstance1",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:28:03.9342211Z"
+      },
+      {
+        "NewName": "MainUI.leftNineSlice",
+        "OldName": "MainUI.NineSliceInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:28:16.4297853Z"
+      },
+      {
+        "NewName": "MainUI.RectangleInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:28:43.1931842Z"
+      },
+      {
+        "NewName": "MainUI.mainWindow",
+        "OldName": "MainUI.RectangleInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:30:30.9831182Z"
+      },
+      {
+        "NewName": "MainUI.NineSliceInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T16:30:35.5631001Z"
+      },
+      {
+        "NewName": "MainUI.mainNineSlice",
+        "OldName": "MainUI.NineSliceInstance",
+        "ElementType": "Screens",
+        "EventType": 7,
+        "TimestampUtc": "2025-07-02T16:30:42.3112944Z"
+      },
+      {
+        "NewName": "MainUI.ContainerInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T17:30:05.0571702Z"
+      },
+      {
+        "NewName": "MainUI.TextInstance",
+        "OldName": null,
+        "ElementType": "Screens",
+        "EventType": 5,
+        "TimestampUtc": "2025-07-02T19:22:09.2763035Z"
+      }
+    ]
+  }
+}

@@ -33,7 +33,6 @@ namespace RpgGame.Script.Manager
             GraphicalUiElement.CanvasWidth = graphics.Viewport.Width;
             GraphicalUiElement.CanvasHeight = graphics.Viewport.Height;
 
-            // Grab your rootmost object and tell it to resize:
             GumService.Default.Root.UpdateLayout();
             
         }
