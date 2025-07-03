@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using Microsoft.Xna.Framework;
 using System;
 using RpgGame.Script.Components.UI;
+using RpgGame.UI;
 
 namespace RpgGame.Components
 {
@@ -38,7 +39,6 @@ namespace RpgGame.Components
         public NineSliceRuntime mainWindow;
         public NineSliceRuntime mainNineSlice;
 
-        public ColoredRectangleRuntime playerPortrait;
 
         public override void Start()
         {
@@ -53,40 +53,7 @@ namespace RpgGame.Components
             leftPanel.AddToRoot();
             rightPanel.AddToRoot();
 
-            playerPortrait = new ColoredRectangleRuntime();
-            var statBar = new TextRuntime();
-
-            playerPortrait.WidthUnits = DimensionUnitType.PercentageOfParent;
-            playerPortrait.Width = 80;
-            playerPortrait.XUnits = GeneralUnitType.Percentage;
-            playerPortrait.X = 10;
-
-            playerPortrait.HeightUnits = DimensionUnitType.PercentageOfParent;
-            playerPortrait.Height = 40;
-            playerPortrait.YUnits = GeneralUnitType.Percentage;
-            playerPortrait.Y = 2;
-
-            statBar.WidthUnits = DimensionUnitType.PercentageOfParent;
-            statBar.Width = 98;
-            statBar.XUnits = GeneralUnitType.Percentage;
-            statBar.X = 2;
-
-            statBar.HeightUnits = DimensionUnitType.PercentageOfParent;
-            statBar.Height = 50;
-            //statBar.YUnits = GeneralUnitType.Percentage;
-            statBar.Y = 10;
-            statBar.Anchor(Anchor.Bottom);
-
-            leftPanelContainer.AddChild(statBar);
-            leftPanelContainer.AddChild(playerPortrait);
-
-            statBar.Color = Color.Black;
-            statBar.HorizontalAlignment = HorizontalAlignment.Left;
-
-            foreach (var kv in Player.instance.entity.stats)
-            {
-                statBar.Text += $"{kv.Key}: {kv.Value}\n";
-            }
+            ChangeLeftPanel(PlayerStatView.GetStatView());
         }
 
         private void SetupPanel(ref ContainerRuntime container, ref ContainerRuntime inside, ref NineSliceRuntime nineslice, Anchor anchor)

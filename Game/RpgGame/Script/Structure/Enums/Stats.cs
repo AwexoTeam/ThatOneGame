@@ -33,14 +33,16 @@ namespace RpgGame.Structure
         Min_Damage,
         Max_Damage,
 
-        Magic_Damage,
 
         Min_Injury,
         Max_Injury,
 
+
         Critical_Chance,
         Critical_Damage,
         Balance,
+        
+        Magic_Damage,
 
         HP_Leech,
         MP_Leech,
