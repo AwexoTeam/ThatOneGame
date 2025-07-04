@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using MonoGameGum.Forms.Controls;
 using MonoGameGum.GueDeriving;
 using RenderingLibrary.Graphics;
+using RpgGame.Managers;
 using RpgGame.Structure;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,29 @@ namespace RpgGame.UI
         public static TextRuntime statCategoryText;
 
         private static int currentCategory = 0;
+
+        public static void Initialize()
+        {
+            EventManager.EntityStatChanged += EntityStatChanged;
+        }
+
+
+        private static void EntityStatChanged(Entity entity, Stats stat, float oldValue, float newValue)
+        {
+            if (entity != Player.instance.entity)
+                return;
+
+            var category = statCategories.ElementAt(currentCategory);
+            if (!category.Value.Contains(stat))
+                return;
+
+            UpdateUI();
+        }
+
+        private static void UpdateUI()
+        {
+            UpdateStatBlocks();
+        }
 
         public static GraphicalUiElement GetStatView()
         {

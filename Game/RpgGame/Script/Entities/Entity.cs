@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RpgGame.Managers;
 using RpgGame.Script.Utils.Extentions;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,8 @@ namespace RpgGame.Structure
                 Debug.LogError("Tried to set stat " + stat + " on " + name);
                 return;
             }
+
+            EventManager.Invoke(EventManagerTypes.EntityStatChanged, this, stat, stats[stat], val);
 
             stats[stat] = val;
             if (!doStatCheck)

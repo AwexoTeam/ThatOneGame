@@ -290,6 +290,12 @@ namespace RpgGame.Structure
 
         protected void TickAnimation()
         {
+            if (renderer == null)
+                return;
+
+            if (renderer.texture == null)
+                return;
+
             animationTick++;
             if (animationTick * renderer.tileSize < renderer.texture.Width)
                 return;

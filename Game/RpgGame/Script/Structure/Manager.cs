@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RpgGame.Script.Structure
 {
-    internal abstract class Manager
+    public abstract class Manager
     {
         public abstract void Initialize();
         public virtual void Destroy() { }

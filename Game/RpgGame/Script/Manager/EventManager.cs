@@ -25,6 +25,8 @@ namespace RpgGame.Managers
         SceneUnloaded,
 
         WindowSizeChanged,
+
+        EntityStatChanged
     };
 
     public static class EventManager
@@ -46,6 +48,8 @@ namespace RpgGame.Managers
         public delegate void _SceneUnloaded(int id);
 
         public delegate void _WindowSizeChanged(EventArgs e);
+
+        public delegate void _EntityStatChanged(Entity entity, Stats stat, float oldValue, float newValue);
         #endregion
 
         #region events
@@ -64,6 +68,7 @@ namespace RpgGame.Managers
         public static event _SceneUnloaded OnSceneUnloaded;
 
         public static event _WindowSizeChanged OnWindowSizeChanged;
+        public static event _EntityStatChanged EntityStatChanged;
         #endregion
 
         public static void Invoke(EventManagerTypes type, params object[] args)
@@ -110,6 +115,12 @@ namespace RpgGame.Managers
                 case EventManagerTypes.WindowSizeChanged:
                     OnWindowSizeChanged?.Invoke((EventArgs)args[0]);
                     break;
+
+                case EventManagerTypes.EntityStatChanged:
+                    EntityStatChanged?.Invoke((Entity)args[0], (Stats)args[1], (float)args[2], (float)args[3]);
+                    break;
+
+
 
             }
         }

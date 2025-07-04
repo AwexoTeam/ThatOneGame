@@ -51,6 +51,10 @@ namespace RpgGame.Structure
         Defence,
         Damage_Reduction,
 
+        Exp,
+
+        Genitalia_Length = 1000,
+        ChestSize,
     }
 
 }

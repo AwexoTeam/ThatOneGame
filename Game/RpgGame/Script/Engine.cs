@@ -22,6 +22,7 @@ namespace RpgGame
         public static RenderManager renderer;
         public Engine()
         {
+            Globals.random = new Random();
             updateCalls = new List<Action<GameTime>>();
             
             graphics = new GraphicsDeviceManager(this);

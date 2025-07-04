@@ -18,6 +18,8 @@ using Microsoft.Xna.Framework;
 using System;
 using RpgGame.Script.Components.UI;
 using RpgGame.UI;
+using RpgGame.Script.Components.UI.BattleUI;
+using RpgGame.Managers;
 
 namespace RpgGame.Components
 {
@@ -36,10 +38,8 @@ namespace RpgGame.Components
         public NineSliceRuntime leftNineSlice;
         public NineSliceRuntime rightNineSlice;
 
-        public NineSliceRuntime mainWindow;
-        public NineSliceRuntime mainNineSlice;
-
-
+        public ContainerRuntime mainWindow;
+        
         public override void Start()
         {
             if (instance != null)
@@ -53,6 +53,17 @@ namespace RpgGame.Components
             leftPanel.AddToRoot();
             rightPanel.AddToRoot();
 
+            mainWindow = new ContainerRuntime();
+            mainWindow.HeightUnits = DimensionUnitType.PercentageOfParent;
+            mainWindow.WidthUnits = DimensionUnitType.PercentageOfParent;
+            mainWindow.Width = 100 - (sidePanelPercentage * 2);
+            mainWindow.XUnits = GeneralUnitType.Percentage;
+            mainWindow.X = sidePanelPercentage;
+            mainWindow.Height = 100;
+
+            mainWindow.AddToRoot();
+
+            PlayerStatView.Initialize();
             ChangeLeftPanel(PlayerStatView.GetStatView());
         }
 
@@ -98,9 +109,13 @@ namespace RpgGame.Components
 
         public void ChangeMiddlePanel(GraphicalUiElement element)
         {
-            mainWindow.Children.Clear();
+            ClearMiddleWindow();
             mainWindow.AddChild(element);
         }
 
+        public void ClearMiddleWindow()
+        {
+            mainWindow.Children.Clear();
+        }
     }
 }
