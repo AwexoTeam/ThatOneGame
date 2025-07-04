@@ -290,11 +290,11 @@ namespace RpgGame.Structure
 
         protected void TickAnimation()
         {
-            //animationTick++;
-            //if (animationTick * renderer.tileSize < renderer.texture.Width)
-            //    return;
+            animationTick++;
+            if (animationTick * renderer.tileSize < renderer.texture.Width)
+                return;
 
-            //animationTick = 0;
+            animationTick = 0;
         }
 
         protected void SetDirection()
